@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
-    private List<Class> classes = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
     @NonNull
     @Override
     public ClassHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -23,19 +23,19 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ClassHolder holder, int position) {
-        Class currentClass = classes.get(position);
-        holder.textViewTitle.setText(currentClass.getClass());
-        holder.textViewDescription.setText(currentClass.getDescription());
-        holder.textViewPrioritiy.setText(currentClass.getGrade());
+        Course currentCourse = courses.get(position);
+        holder.textViewTitle.setText(currentCourse.getTitle());
+        holder.textViewDescription.setText(currentCourse.getDescription());
+        holder.textViewPrioritiy.setText(currentCourse.getCourseID());
     }
 
     @Override
     public int getItemCount() {
-        return classes.size();
+        return courses.size();
     }
 
-    public void setClasses(List<Classes> classes){
-        this.classes = classes;
+    public void setCourses(List<Course> courses){
+        this.courses = courses;
         notifyDataSetChanged();
     }
 

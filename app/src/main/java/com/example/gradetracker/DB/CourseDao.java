@@ -6,6 +6,19 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.gradetracker.Course;
+
 @Dao
 public interface CourseDao {
+    @Insert
+    void insert(Course... courses);
+
+    @Update
+    void update(Course... courses);
+
+    @Delete
+    void delete(Course... courses);
+
+    @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " WHERE courseID = :id")
+    Course getCourse(int id);
 }

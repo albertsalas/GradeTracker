@@ -2,13 +2,19 @@ package com.example.gradetracker;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 
 import java.util.Date;
 
 @Entity(tableName = AppDatabase.ENROLLMENT_TABLE)
+@TypeConverters({DateTypeConverter.class})
+
 public class Enrollment {
+    @PrimaryKey
+    private int enrollmentID;
     private int studentID;
     private int courseID;
     private Date enrollmentDate;
@@ -17,6 +23,14 @@ public class Enrollment {
         this.studentID = studentID;
         this.courseID = courseID;
         this.enrollmentDate = enrollmentDate;
+    }
+
+    public int getEnrollmentID() {
+        return enrollmentID;
+    }
+
+    public void setEnrollmentID(int enrollmentID) {
+        this.enrollmentID = enrollmentID;
     }
 
     public int getStudentID() {

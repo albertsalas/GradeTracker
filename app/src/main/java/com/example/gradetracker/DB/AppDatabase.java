@@ -21,15 +21,15 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String GRADE_TABLE = "grade";
     public static final String ENROLLMENT_TABLE = "enrollment";
 
-    public abstract UserDao userDAO();
+    public abstract UserDao getUserDao();
 
-    public abstract CourseDao courseDao();
+    public abstract CourseDao getCourseDao();
 
-    public abstract GradeCategoryDao gradeCategoryDao();
+    public abstract GradeCategoryDao getGradeCategoryDao();
 
-    public abstract AssignmentDao assignmentDao();
+    public abstract AssignmentDao getAssignmentDao();
 
-    public abstract GradeDao gradeDao();
+    public abstract GradeDao getGradeDao();
 
-    public abstract EnrollmentDao enrollmentDao();
+    public abstract EnrollmentDao getEnrollmentDao();
 }

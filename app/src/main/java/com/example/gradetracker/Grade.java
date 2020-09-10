@@ -2,12 +2,16 @@ package com.example.gradetracker;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 
 import java.util.Date;
 
 @Entity(tableName = AppDatabase.GRADE_TABLE)
+@TypeConverters({DateTypeConverter.class})
+
 public class Grade {
     @PrimaryKey(autoGenerate = true)
     private int gradeID;

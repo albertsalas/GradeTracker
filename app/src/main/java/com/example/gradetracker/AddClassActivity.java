@@ -88,7 +88,7 @@ public class AddClassActivity extends AppCompatActivity {
 //        Date s1 = formatter.parse(endDate.getText().toString());
                 Course newCourse = new Course(i, t, d, new Date(), new Date());
                 courseDao.insert(newCourse);
-                //TODO : outputting zero for ID gotta fix it
+
                 Course tempCourse = courseDao.getLastCourse();
 
                 enrollmentDao.insert(new Enrollment(extraID, tempCourse.getCourseID()));

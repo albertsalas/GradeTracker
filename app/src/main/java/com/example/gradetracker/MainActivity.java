@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
 //        for(Course course : mCourses){
 //            courseDao.delete(course);
 //        }
+//        mUsers = mUsersDAO.getAllUsers();
+//        for(User user : mUsers)
+//            mUsersDAO.delete(user);
 
         basicSetup();
     }

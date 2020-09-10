@@ -9,10 +9,12 @@ import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
+import com.example.gradetracker.DB.EnrollmentDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -25,8 +27,10 @@ public class ClassScheduleActivity extends AppCompatActivity {
     Bundle ex;
     int extraID;
     CourseDao courseDao;
-    List mCourses;
-
+    List<Course> mCourses;
+    List<Enrollment> mEnrollments;
+    EnrollmentDao enrollmentDao;
+    List<Course> tempCourses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +49,23 @@ public class ClassScheduleActivity extends AppCompatActivity {
             }
         });
 
+        enrollmentDao = Room.databaseBuilder(this,AppDatabase.class, AppDatabase.ENROLLMENT_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getEnrollmentDao();
+
         courseDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.COURSE_TABLE)
                 .allowMainThreadQueries()
                 .build()
                 .getCourseDao();
+        mEnrollments = enrollmentDao.getAllEnrollments();
+//        for(Enrollment en : mEnrollments){
+//            System.out.println(en.getCourseID());
+//            String temp = Integer.toString(en.getCourseID());
+//            Log.i("tempID ", temp);
+//        }
+
+
         mCourses = courseDao.getAllCourses();
 
         recyclerView = findViewById(R.id.recycle_view);

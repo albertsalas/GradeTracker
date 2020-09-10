@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.gradetracker.Enrollment;
 
+import java.util.List;
+
 
 @Dao
 public interface EnrollmentDao {
@@ -23,5 +25,9 @@ public interface EnrollmentDao {
     @Query("SELECT * FROM " + AppDatabase.ENROLLMENT_TABLE + " WHERE enrollmentID = :id")
     Enrollment getEnrollment(int id);
 
-    //@Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE + "WHERE ")
+    @Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE + " WHERE studentID = :uID")
+    List<Enrollment> getStudentsEnrolledClasses(int uID);
+
+    @Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE )
+    List<Enrollment> getAllEnrollments();
 }

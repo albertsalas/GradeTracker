@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
-    private List<Course> courses = new ArrayList<>();
-    @NonNull
+    List<Course> courses;
+    public ClassAdapter(List<Course> courses){
+        this.courses = courses;
+    }
     @Override
     public ClassHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -26,7 +28,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         Course currentCourse = courses.get(position);
         holder.textViewTitle.setText(currentCourse.getTitle());
         holder.textViewDescription.setText(currentCourse.getDescription());
-        holder.textViewPrioritiy.setText(currentCourse.getCourseID());
+        holder.textViewPriority.setText(String.valueOf(currentCourse.getCourseID()));
     }
 
     @Override
@@ -42,13 +44,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
     class ClassHolder extends RecyclerView.ViewHolder{
         private TextView textViewTitle;
         private TextView textViewDescription;
-        private TextView textViewPrioritiy;
+        private TextView textViewPriority;
 
         public ClassHolder(View itemView){
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
-            textViewPrioritiy = itemView.findViewById(R.id.text_view_priority);
+            textViewPriority = itemView.findViewById(R.id.text_view_priority);
         }
     }
 }

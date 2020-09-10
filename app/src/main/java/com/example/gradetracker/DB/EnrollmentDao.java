@@ -22,4 +22,6 @@ public interface EnrollmentDao {
 
     @Query("SELECT * FROM " + AppDatabase.ENROLLMENT_TABLE + " WHERE enrollmentID = :id")
     Enrollment getEnrollment(int id);
+
+    //@Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE + "WHERE ")
 }

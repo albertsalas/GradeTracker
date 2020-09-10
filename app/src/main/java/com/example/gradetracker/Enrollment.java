@@ -13,16 +13,16 @@ import java.util.Date;
 @TypeConverters({DateTypeConverter.class})
 
 public class Enrollment {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int enrollmentID;
     private int studentID;
     private int courseID;
     private Date enrollmentDate;
 
-    public Enrollment(int studentID, int courseID, Date enrollmentDate) {
+    public Enrollment(int studentID, int courseID) {
         this.studentID = studentID;
         this.courseID = courseID;
-        this.enrollmentDate = enrollmentDate;
+        this.enrollmentDate = new Date();
     }
 
     public int getEnrollmentID() {

@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.gradetracker.User;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
     @Insert
@@ -21,4 +23,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE userID = :id")
     User getUser(int id);
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE)
+    List<User> getAllUsers();
 }

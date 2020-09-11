@@ -7,6 +7,9 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.gradetracker.Course;
+import com.example.gradetracker.User;
+
+import java.util.List;
 
 @Dao
 public interface CourseDao {
@@ -21,4 +24,14 @@ public interface CourseDao {
 
     @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " WHERE courseID = :id")
     Course getCourse(int id);
+
+    @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE)
+    List<Course> getAllCourses();
+
+    @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " WHERE courseID = :cID")
+    List<Course> getAllCoursesById(int cID);
+
+    @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " Order BY courseID DESC LIMIT 1 ")
+    Course getLastCourse();
+
 }

@@ -28,9 +28,6 @@ public interface CourseDao {
     @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE)
     List<Course> getAllCourses();
 
-    @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " WHERE courseID = :cID")
-    List<Course> getAllCoursesById(int cID);
-
     @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " Order BY courseID DESC LIMIT 1 ")
     Course getLastCourse();
 

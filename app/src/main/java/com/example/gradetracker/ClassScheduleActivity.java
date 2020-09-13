@@ -1,5 +1,6 @@
 package com.example.gradetracker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,9 @@ import androidx.room.RoomDatabase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.gradetracker.DB.AppDatabase;
@@ -17,20 +21,22 @@ import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ClassScheduleActivity extends AppCompatActivity {
+public class ClassScheduleActivity extends AppCompatActivity implements ClassAdapter.OnCourseListener{
     //private CourseViewModel courseViewModel;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     Bundle ex;
-    int extraID;
+    public int extraID;
     CourseDao courseDao;
     List<Course> mCourses;
     List<Enrollment> mEnrollments;
     EnrollmentDao enrollmentDao;
     List<Course> tempCourses;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
 
         ex = getIntent().getExtras();
         extraID = ex.getInt("uID");
+        setTitle("Course Schedule");
 
         FloatingActionButton buttonAddCourse = findViewById(R.id.floatingActionButton);
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +56,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
             }
         });
 
-        enrollmentDao = Room.databaseBuilder(this,AppDatabase.class, AppDatabase.ENROLLMENT_TABLE)
+        enrollmentDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ENROLLMENT_TABLE)
                 .allowMainThreadQueries()
                 .build()
                 .getEnrollmentDao();
@@ -58,28 +65,51 @@ public class ClassScheduleActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getCourseDao();
-        mEnrollments = enrollmentDao.getAllEnrollments();
-//        for(Enrollment en : mEnrollments){
-//            System.out.println(en.getCourseID());
-//            String temp = Integer.toString(en.getCourseID());
-//            Log.i("tempID ", temp);
-//        }
 
 
+        mEnrollments = enrollmentDao.getStudentsEnrolledClasses(extraID);
+        // the reason I was getting a null was because I wasn't initializing the list
+        // duh that's on me for not googling sooner
+        //TODO: write test for getting specific courses
+        tempCourses = new ArrayList<>();
         mCourses = courseDao.getAllCourses();
+        for(Enrollment enrollment: mEnrollments){
+            tempCourses.add(courseDao.getCourse(enrollment.getCourseID()));
+        }
 
+        //recycler view
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new ClassAdapter(mCourses);
+        adapter = new ClassAdapter(tempCourses, this);
         recyclerView.setAdapter(adapter);
-
-
-//        @Override
-//        public void onChanged(@Nullable List<Course> courses){
-//            adapter.setCourses(courses);
-//        }
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_course_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.settings:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCourseClick(int position) {
+        //mCourses.get(position);
+        Log.i("it got", "CLICKED");
+        //Intent intent = new Intent(this,)
+    }
+
+
 }

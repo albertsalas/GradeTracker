@@ -7,6 +7,7 @@ import com.example.gradetracker.DB.AppDatabase;
 
 @Entity(tableName = AppDatabase.USER_TABLE)
 public class User {
+
     @PrimaryKey(autoGenerate = true)
     private int userID;
     private String username;

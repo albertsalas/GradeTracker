@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">GradeTracker</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="instructor">Instructor</string>
+    <string name="course">Course</string>
+    <string name="description">Description</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
+
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+
+
+
+
+
 </resources>

@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     StringBuilder stringBuilder = new StringBuilder();
 
                     for(User user : mUsers){
+                       // System.out.println(user.getUsername() +" "+ user.getUserID());
                         stringBuilder.append(user);
 
                         if(user.getUsername().equals(tempUsername) && user.getPassword().equals(tempPassword)){

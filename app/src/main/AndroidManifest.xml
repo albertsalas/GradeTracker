@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddClassActivity"></activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".ClassScheduleActivity" />
+        <activity android:name=".ClassScheduleActivity"></activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

@@ -3,6 +3,7 @@ package com.example.gradetracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -29,7 +30,6 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    Bundle ex;
     public int extraID;
     CourseDao courseDao;
     List<Course> mCourses;
@@ -42,10 +42,13 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_schedule);
 
-        ex = getIntent().getExtras();
-        extraID = ex.getInt("uID");
+        /**store extras for any activities*/
+        if(getIntent().hasExtra("uID")){
+            extraID = getIntent().getExtras().getInt("uID");
+        }
         setTitle("Course Schedule");
 
+        //add courses button
         FloatingActionButton buttonAddCourse = findViewById(R.id.floatingActionButton);
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +59,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
             }
         });
 
+        //for helping to retrieve students individual courses
         enrollmentDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ENROLLMENT_TABLE)
                 .allowMainThreadQueries()
                 .build()
@@ -72,7 +76,6 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         // duh that's on me for not googling sooner
         //TODO: write test for getting specific courses
         tempCourses = new ArrayList<>();
-        mCourses = courseDao.getAllCourses();
         for(Enrollment enrollment: mEnrollments){
             tempCourses.add(courseDao.getCourse(enrollment.getCourseID()));
         }
@@ -81,35 +84,65 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
         adapter = new ClassAdapter(tempCourses, this);
         recyclerView.setAdapter(adapter);
-    }
 
+        //for the swipe feature
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+    //menu bar for displaying the settings button on this activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_course_menu, menu);
+        inflater.inflate(R.menu.add_course_menu, menu); // was meant for adding course but re-purposed it for this activity
         return true;
     }
-
+    //for clicking the menu options
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.settings:
+            case R.id.settings: //user profile settings
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("userID", extraID);
                 startActivity(intent);
 
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //this is for sending the users to their current courses assignments, since we're using a recycler view the only way to do
+    //this is by making courses parcelable
     @Override
     public void onCourseClick(int position) {
         //mCourses.get(position);
-        Log.i("it got", "CLICKED");
-        //Intent intent = new Intent(this,)
+        Intent intent = new Intent(this, AssignmentActivity.class);
+        intent.putExtra("courseID", tempCourses.get(position));
+        startActivity(intent);
     }
+
+    /**for swiping but not sure if you guys want it implemented*/
+//    Course deletedCourse = null;
+//
+//    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+//        @Override
+//        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//            return false;
+//        }
+//
+//        @Override
+//        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//            int position = viewHolder.getAdapterPosition();
+//            switch(direction){
+//                case ItemTouchHelper.LEFT:
+//                    deletedCourse = tempCourses.get(position);
+//                    tempCourses.remove(position);
+//                    adapter.notifyItemRemoved(position);
+//                    break;
+//                case ItemTouchHelper.RIGHT:
+//                    break;
+//            }
+//        }
+//    };
 
 
 }

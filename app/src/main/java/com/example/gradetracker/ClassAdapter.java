@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
                 .inflate(R.layout.class_card, parent, false);
         return new ClassHolder(itemView, mOnCourseListener);
     }
-
+    //set the cards to their respective info
+    //TODO: still need to pull the grades, right now just using the courseID to fill in
     @Override
     public void onBindViewHolder(@NonNull ClassHolder holder, int position) {
         Course currentCourse = courses.get(position);

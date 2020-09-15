@@ -1,5 +1,8 @@
 package com.example.gradetracker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -13,7 +16,7 @@ import java.util.Date;
 @Entity(tableName = AppDatabase.COURSE_TABLE)
 @TypeConverters({DateTypeConverter.class})
 
-public class Course {
+public class Course implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int courseID;
@@ -30,6 +33,25 @@ public class Course {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    protected Course(Parcel in) {
+        courseID = in.readInt();
+        instructor = in.readString();
+        title = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
+        public Course createFromParcel(Parcel in) {
+            return new Course(in);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
 
     public int getCourseID() {
         return courseID;
@@ -77,5 +99,18 @@ public class Course {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(courseID);
+        dest.writeString(instructor);
+        dest.writeString(title);
+        dest.writeString(description);
     }
 }

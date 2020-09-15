@@ -4,6 +4,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
     <string name="instructor">Instructor</string>
     <string name="course">Course</string>
     <string name="description">Description</string>
@@ -12,9 +14,6 @@
 
     <string name="login">Login</string>
     <string name="signup">Signup</string>
-
-
-
 
 
 </resources>

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,16 +14,20 @@ import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
     List<Course> courses;
-    public ClassAdapter(List<Course> courses){
+    private OnCourseListener mOnCourseListener;
+
+    public ClassAdapter(List<Course> courses, OnCourseListener onCourseListener){
         this.courses = courses;
+        this.mOnCourseListener = onCourseListener;
     }
     @Override
     public ClassHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.class_card, parent, false);
-        return new ClassHolder(itemView);
+        return new ClassHolder(itemView, mOnCourseListener);
     }
-
+    //set the cards to their respective info
+    //TODO: still need to pull the grades, right now just using the courseID to fill in
     @Override
     public void onBindViewHolder(@NonNull ClassHolder holder, int position) {
         Course currentCourse = courses.get(position);
@@ -41,16 +46,28 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         notifyDataSetChanged();
     }
 
-    class ClassHolder extends RecyclerView.ViewHolder{
+    class ClassHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView textViewTitle;
         private TextView textViewDescription;
         private TextView textViewPriority;
+        OnCourseListener onCourseListener;
 
-        public ClassHolder(View itemView){
+        public ClassHolder(View itemView, OnCourseListener onCourseListener){
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewPriority = itemView.findViewById(R.id.text_view_priority);
+            this.onCourseListener = onCourseListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onCourseListener.onCourseClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnCourseListener{
+        void onCourseClick(int position);
     }
 }

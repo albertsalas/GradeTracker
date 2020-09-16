@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddClassActivity"></activity>
+        <activity android:name=".UpdateCourseInfoActivity"></activity>
+        <activity android:name=".CourseInfoActivity" />
+        <activity android:name=".AssignmentActivity" />
+        <activity android:name=".AddClassActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ClassScheduleActivity" />
         <activity android:name=".SignupActivity" />

@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddClassActivity"
-    android:padding="16dp">
+    tools:context=".UpdateCourseInfoActivity">
 
     <EditText
-        android:id="@+id/addCourseTitle"
+        android:id="@+id/updateCourseTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/course"
@@ -21,7 +20,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <EditText
-        android:id="@+id/addCourseInstructor"
+        android:id="@+id/updateCourseInstructor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/instructor"
@@ -29,11 +28,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCourseTitle"
+        app:layout_constraintTop_toBottomOf="@+id/updateCourseTitle"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/addCourseDescription"
+        android:id="@+id/updateCourseDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/description"
@@ -42,11 +41,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCourseInstructor"
+        app:layout_constraintTop_toBottomOf="@+id/updateCourseInstructor"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/addCourseStartDate"
+        android:id="@+id/updateCourseStartDate"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginStart="28dp"
@@ -55,11 +54,11 @@
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCourseDescription"
+        app:layout_constraintTop_toBottomOf="@+id/updateCourseDescription"
         app:layout_constraintVertical_bias="0.038" />
 
     <EditText
-        android:id="@+id/addCourseEndDate"
+        android:id="@+id/updateCourseEndDate"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginStart="44dp"
@@ -70,19 +69,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/addCourseStartDate"
-        app:layout_constraintTop_toBottomOf="@+id/addCourseDescription"
+        app:layout_constraintStart_toEndOf="@+id/updateCourseStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/updateCourseDescription"
         app:layout_constraintVertical_bias="0.04" />
 
     <Button
-        android:id="@+id/addCourseButton"
+        android:id="@+id/updateCourseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addCourseDescription"
+        app:layout_constraintTop_toBottomOf="@+id/updateCourseDescription"
         app:layout_constraintVertical_bias="0.319" />
 </androidx.constraintlayout.widget.ConstraintLayout>

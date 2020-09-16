@@ -95,8 +95,8 @@ public class EditCourseActivity extends AppCompatActivity {
         String instructorName = mInstructorName.getText().toString();
         String courseTitle = mCourseTitle.getText().toString();
         String courseDescription = mCourseDescription.getText().toString();
-        Date startDate = (Date) mStartDate.getText();
-        Date endDate = (Date) mEndDate.getText();
+        String startDate = mStartDate.getText().toString();
+        String endDate = mEndDate.getText().toString();
 
         courses = dao.getAllCourses();
 
@@ -109,10 +109,10 @@ public class EditCourseActivity extends AppCompatActivity {
         if(!courseDescription.isEmpty()){
             mCourse.setDescription(courseDescription);
         }
-        if(!startDate.toString().isEmpty()){
+        if(!startDate.isEmpty()){
             mCourse.setStartDate(startDate);
         }
-        if(!endDate.toString().isEmpty()){
+        if(!endDate.isEmpty()){
             mCourse.setEndDate(endDate);
         }
 

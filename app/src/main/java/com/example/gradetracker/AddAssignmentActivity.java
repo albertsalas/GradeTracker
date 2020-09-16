@@ -74,8 +74,8 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
     boolean addNewAssignment(){
         String detail = mDetail.getText().toString();
-        Date dueDate = (Date) mDueDate.getText();
-        Date assignedDate = (Date) mAssignedDate.getText();
+        String dueDate = mDueDate.getText().toString();
+        String assignedDate = mAssignedDate.getText().toString();
         int categoryID = Integer.parseInt(mCategoryID.getText().toString());
         int courseId = Integer.parseInt(mCourseID.getText().toString());
 

@@ -83,10 +83,8 @@ public class AddClassActivity extends AppCompatActivity {
                 String d = description.getText().toString();
                 String sd = startDate.getText().toString();
                 String ed = endDate.getText().toString();
-//        SimpleDateFormat formatter = new SimpleDateFormat(sd);
-//        Date s = formatter.parse(startDate.getText().toString());
-//        Date s1 = formatter.parse(endDate.getText().toString());
-                Course newCourse = new Course(i, t, d, new Date(), new Date());
+
+                Course newCourse = new Course(i, t, d, sd, ed);
                 courseDao.insert(newCourse);
 
                 Course tempCourse = courseDao.getLastCourse();

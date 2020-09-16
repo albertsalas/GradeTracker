@@ -72,8 +72,8 @@ public class AddCourseActivity extends AppCompatActivity {
         String instructorName = mInstructorName.getText().toString();
         String courseTitle = mCourseTitle.getText().toString();
         String courseDescription = mCourseDescription.getText().toString();
-        Date startDate = Date.valueOf(mStartDate.getText().toString());
-        Date endDate = Date.valueOf(mEndDate.getText().toString());
+        String startDate = mStartDate.getText().toString();
+        String endDate = mEndDate.getText().toString();
 
         mCourses = dao.getAllCourses();
         Course newCourse = new Course(instructorName,courseTitle,courseDescription,startDate,endDate);

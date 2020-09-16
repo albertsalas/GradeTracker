@@ -22,8 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +34,7 @@ public class DatabaseInstrumentedTest {
     private GradeCategoryDao gradeCategoryDao;
     private GradeDao gradeDao;
     private UserDao userDao;
-    private Date date;
+    private String date;
     private Assignment assignment;
     private Course course;
     private Enrollment enrollment;
@@ -57,7 +55,7 @@ public class DatabaseInstrumentedTest {
         userDao = db.getUserDao();
 
         // instantiate some objects for testing
-        date = new Date();
+        date = "09/15/2020";
         user = new User("bob123", "dog", "bob", "bobson");
         course = new Course("bob", "438", "software engineering", date, date);
         // set gradeID to -1 because a grade needs to be created first
@@ -67,7 +65,7 @@ public class DatabaseInstrumentedTest {
         grade = new Grade(99, assignment.getAssignmentID(), user.getUserID(), course.getCourseID(), date);
         // now after the grade object is created, its ID can be used in gradeCategory
         gradeCategory.setGradeID(grade.getGradeID());
-        enrollment = new Enrollment(user.getUserID(), course.getCourseID(), date);
+        enrollment = new Enrollment(user.getUserID(), course.getCourseID());
     }
 
     @After

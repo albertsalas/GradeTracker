@@ -6,9 +6,6 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +13,6 @@ import android.widget.EditText;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
-import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AddClassActivity extends AppCompatActivity {
 
@@ -46,11 +37,11 @@ public class AddClassActivity extends AppCompatActivity {
         ex = getIntent().getExtras();
         extraID = ex.getInt("uID");
 
-        instructor = findViewById(R.id.edit_text_instructor);
-        title = findViewById(R.id.edit_text_title);
-        description = findViewById(R.id.edit_text_description);
-        startDate = findViewById(R.id.edit_text_startDate);
-        endDate = findViewById(R.id.edit_text_endDate);
+        instructor = findViewById(R.id.addCourseInstructor);
+        title = findViewById(R.id.addCourseTitle);
+        description = findViewById(R.id.addCourseDescription);
+        startDate = findViewById(R.id.addCourseStartDate);
+        endDate = findViewById(R.id.addCourseEndDate);
 
 
         enrollmentDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ENROLLMENT_TABLE)
@@ -72,7 +63,7 @@ public class AddClassActivity extends AppCompatActivity {
 
     private void saveCourse(){
 
-        add = findViewById(R.id.addClassButton);
+        add = findViewById(R.id.addCourseButton);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +75,8 @@ public class AddClassActivity extends AppCompatActivity {
                 String d = description.getText().toString();
                 String sd = startDate.getText().toString();
                 String ed = endDate.getText().toString();
-
-                Course newCourse = new Course(i, t, d, new Date(), new Date());
+                Log.i("DATE", sd);
+                Course newCourse = new Course(i, t, d, sd, ed);
                 courseDao.insert(newCourse);
 
                 Course tempCourse = courseDao.getLastCourse();

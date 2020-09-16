@@ -12,10 +12,7 @@ public class AssignmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment);
 
-        if(getIntent().hasExtra("courseID")){
-            Course course = getIntent().getParcelableExtra("courseID");
-            Log.d(TAG, "onCreate:" + course.getTitle());
-        }
+        setTitle("Assignments");
 
     }
 }

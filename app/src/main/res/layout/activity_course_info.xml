@@ -45,7 +45,7 @@
         app:layout_constraintVertical_bias="0.052" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/courseInfoStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/startdate"
@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.076" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/courseInfoEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enddate"
@@ -71,7 +71,7 @@
         app:layout_constraintVertical_bias="0.078" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/courseInfoViewAssignmentsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Assignments"

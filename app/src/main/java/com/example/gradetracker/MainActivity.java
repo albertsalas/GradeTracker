@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
+import com.example.gradetracker.DB.EnrollmentDao;
 import com.example.gradetracker.DB.UserDao;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     List<User> mUsers;
     CourseDao courseDao;
     List<Course> mCourses;
+    EnrollmentDao enrollmentDao;
+    List<Enrollment> enrollment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,26 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getCourseDao();
+        enrollmentDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.COURSE_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getEnrollmentDao();
+
+//        enrollment = enrollmentDao.getAllEnrollments();
+//        for(Enrollment en : enrollment){
+//            enrollmentDao.delete(en);
+//        }
 //        mCourses = courseDao.getAllCourses();
 //
 //        for(Course course : mCourses){
 //            courseDao.delete(course);
 //        }
 //        mUsers = mUsersDAO.getAllUsers();
-//        for(User user : mUsers)
+//        for(User user : mUsers){
 //            mUsersDAO.delete(user);
-
+//
+//        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         basicSetup();
     }
 
@@ -72,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
         mUsers = mUsersDAO.getAllUsers();
 
         if(mUsers.isEmpty()){
-            mUsersDAO.insert(new User("admin","password","test", "name"));
+            User user = new User("admin","password","test", "name");
+            //user.setUserID(1);
+            mUsersDAO.insert(user);
         }
     }
 }

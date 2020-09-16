@@ -18,12 +18,12 @@ public class Assignment {
     private String details;
     private double maxScore;
     private double earnedScore;
-    private Date assignedDate;
-    private Date dueDate;
+    private String assignedDate;
+    private String dueDate;
     private int categoryID;
     private int courseId;
 
-    public Assignment(String details, double maxScore, double earnedScore, Date assignedDate, Date dueDate, int categoryID, int courseId) {
+    public Assignment(String details, double maxScore, double earnedScore, String assignedDate, String dueDate, int categoryID, int courseId) {
         this.details = details;
         this.maxScore = maxScore;
         this.earnedScore = earnedScore;
@@ -65,19 +65,19 @@ public class Assignment {
         this.earnedScore = earnedScore;
     }
 
-    public Date getAssignedDate() {
+    public String getAssignedDate() {
         return assignedDate;
     }
 
-    public void setAssignedDate(Date assignedDate) {
+    public void setAssignedDate(String assignedDate) {
         this.assignedDate = assignedDate;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 

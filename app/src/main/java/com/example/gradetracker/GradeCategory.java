@@ -18,9 +18,9 @@ public class GradeCategory {
     private String title;
     private double weight;
     private int gradeID;
-    private Date assignedDate;
+    private String assignedDate;
 
-    public GradeCategory(String title, double weight, int gradeID, Date assignedDate) {
+    public GradeCategory(String title, double weight, int gradeID, String assignedDate) {
         this.title = title;
         this.weight = weight;
         this.gradeID = gradeID;
@@ -59,11 +59,11 @@ public class GradeCategory {
         this.gradeID = gradeID;
     }
 
-    public Date getAssignedDate() {
+    public String getAssignedDate() {
         return assignedDate;
     }
 
-    public void setAssignedDate(Date assignedDate) {
+    public void setAssignedDate(String assignedDate) {
         this.assignedDate = assignedDate;
     }
 }

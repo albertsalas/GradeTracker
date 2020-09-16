@@ -137,6 +137,5 @@ public class EditAssignmentActivity extends AppCompatActivity {
         Toast.makeText(this, "Assignment was deleted.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditAssignmentActivity.this,LoginActivity.class);
         startActivity(intent);
-
     }
 }

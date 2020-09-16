@@ -19,9 +19,9 @@ public class Grade {
     private int assignmentID;
     private int studentID;
     private int courseID;
-    private Date dateEarned;
+    private String dateEarned;
 
-    public Grade(double score, int assignmentID, int studentID, int courseID, Date dateEarned) {
+    public Grade(double score, int assignmentID, int studentID, int courseID, String dateEarned) {
         this.score = score;
         this.assignmentID = assignmentID;
         this.studentID = studentID;
@@ -69,11 +69,11 @@ public class Grade {
         this.courseID = courseID;
     }
 
-    public Date getDateEarned() {
+    public String getDateEarned() {
         return dateEarned;
     }
 
-    public void setDateEarned(Date dateEarned) {
+    public void setDateEarned(String dateEarned) {
         this.dateEarned = dateEarned;
     }
 }

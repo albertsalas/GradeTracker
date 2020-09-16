@@ -115,7 +115,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     @Override
     public void onCourseClick(int position) {
         //mCourses.get(position);
-        Intent intent = new Intent(this, AssignmentActivity.class);
+        Intent intent = new Intent(this, CourseInfoActivity.class);
         intent.putExtra("courseID", tempCourses.get(position));
         startActivity(intent);
     }

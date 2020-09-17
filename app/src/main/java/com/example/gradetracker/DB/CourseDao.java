@@ -20,7 +20,7 @@ public interface CourseDao {
     void update(Course... courses);
 
     @Delete
-    void delete(Course... courses);
+    void delete(Course course);
 
     @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " WHERE courseID = :id")
     Course getCourse(int id);

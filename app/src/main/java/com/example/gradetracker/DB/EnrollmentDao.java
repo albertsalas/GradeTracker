@@ -29,6 +29,9 @@ public interface EnrollmentDao {
     @Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE + " WHERE studentID = :uID")
     List<Enrollment> getStudentsEnrolledClasses(int uID);
 
+    @Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE + " WHERE courseID = :courseID")
+    Enrollment getEnrolledClass(int courseID);
+
     @Query("SELECT * FROM " +AppDatabase.ENROLLMENT_TABLE )
     List<Enrollment> getAllEnrollments();
 

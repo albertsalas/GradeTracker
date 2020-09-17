@@ -70,6 +70,7 @@ public class UpdateCourseInfoActivity extends AppCompatActivity {
                 newStartDate = startDate.getText().toString();
                 newEndDate = endDate.getText().toString();
 
+
             }
         });
     }

@@ -48,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 Intent sendToSchedule = new Intent(LoginActivity.this, ClassScheduleActivity.class);
 
                 mUsers = mUserDao.getAllUsers();
-                tempUsername = username.getText().toString();
-                tempPassword = password.getText().toString();
+                tempUsername = username.getText().toString().trim();
+                tempPassword = password.getText().toString().trim();
 
                 if(username.getText().toString().equals("") || password.getText().toString().equals("")){
                     Toast.makeText(LoginActivity.this, "One or more fields are blank", Toast.LENGTH_SHORT).show();

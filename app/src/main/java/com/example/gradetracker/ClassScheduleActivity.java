@@ -120,7 +120,8 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         startActivity(intent);
     }
 
-    /**for swiping but not sure if you guys want it implemented*/
+    /**for swiping finished implementing it with deletion and I just reload the activity to make it simple*/
+    //actually we dont have to reload activity since the list actually updates how I want it to
     Course deletedCourse = null;
     Enrollment deletedEnrollment = null;
 
@@ -142,10 +143,10 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
                     enrollmentDao.delete(deletedEnrollment);
                     tempCourses.remove(position);
                     adapter.notifyItemRemoved(position);
-                    Intent intent = new Intent(ClassScheduleActivity.this, ClassScheduleActivity.class);
-                    intent.putExtra("uID", extraID);
+                    //Intent intent = new Intent(ClassScheduleActivity.this, ClassScheduleActivity.class);
+                    //intent.putExtra("uID", extraID);
                     Toast.makeText(ClassScheduleActivity.this, "Course Deleted", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
+                    //startActivity(intent);
                     break;
 //                case ItemTouchHelper.RIGHT:
 //                    break;

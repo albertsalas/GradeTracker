@@ -75,7 +75,9 @@ public class AddClassActivity extends AppCompatActivity {
                 String d = description.getText().toString();
                 String sd = startDate.getText().toString();
                 String ed = endDate.getText().toString();
+
                 Log.i("DATE", sd);
+
                 Course newCourse = new Course(i, t, d, sd, ed);
                 courseDao.insert(newCourse);
 

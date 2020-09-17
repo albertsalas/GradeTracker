@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
@@ -35,7 +36,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     List<Course> mCourses;
     List<Enrollment> mEnrollments;
     EnrollmentDao enrollmentDao;
-    List<Course> tempCourses;
+    List<Course> tempCourses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         // the reason I was getting a null was because I wasn't initializing the list
         // duh that's on me for not googling sooner
         //TODO: write test for getting specific courses
-        tempCourses = new ArrayList<>();
+        //tempCourses = new ArrayList<>();
         for(Enrollment enrollment: mEnrollments){
             tempCourses.add(courseDao.getCourse(enrollment.getCourseID()));
         }
@@ -88,8 +89,8 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         recyclerView.setAdapter(adapter);
 
         //for the swipe feature
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     //menu bar for displaying the settings button on this activity
     @Override
@@ -114,35 +115,43 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     //this is by making courses parcelable
     @Override
     public void onCourseClick(int position) {
-        //mCourses.get(position);
         Intent intent = new Intent(this, CourseInfoActivity.class);
         intent.putExtra("courseID", tempCourses.get(position));
         startActivity(intent);
     }
 
     /**for swiping but not sure if you guys want it implemented*/
-//    Course deletedCourse = null;
-//
-//    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
-//        @Override
-//        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//            return false;
-//        }
-//
-//        @Override
-//        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//            int position = viewHolder.getAdapterPosition();
-//            switch(direction){
-//                case ItemTouchHelper.LEFT:
-//                    deletedCourse = tempCourses.get(position);
-//                    tempCourses.remove(position);
-//                    adapter.notifyItemRemoved(position);
-//                    break;
+    Course deletedCourse = null;
+    Enrollment deletedEnrollment = null;
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+
+            switch(direction){
+                case ItemTouchHelper.LEFT:
+                    deletedCourse = tempCourses.get(position);
+                    deletedEnrollment = enrollmentDao.getEnrolledClass(deletedCourse.getCourseID());
+                    courseDao.delete(deletedCourse);
+                    enrollmentDao.delete(deletedEnrollment);
+                    tempCourses.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    Intent intent = new Intent(ClassScheduleActivity.this, ClassScheduleActivity.class);
+                    intent.putExtra("uID", extraID);
+                    Toast.makeText(ClassScheduleActivity.this, "Course Deleted", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                    break;
 //                case ItemTouchHelper.RIGHT:
 //                    break;
-//            }
-//        }
-//    };
+            }
+        }
+    };
 
 
 }

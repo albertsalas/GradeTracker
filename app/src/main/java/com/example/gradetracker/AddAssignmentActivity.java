@@ -82,7 +82,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
         long earnedScore = Long.parseLong(mEarnedScore.getText().toString());
         long maxScore = Long.parseLong(mMaxScore.getText().toString());
 
-        Assignment = dao.getAllAssignment();
+        //Assignment = dao.getAllAssignment();
         Assignment newAssignment = new Assignment(detail,earnedScore,maxScore,assignedDate,dueDate,categoryID,courseId);
         dao.insert(newAssignment);
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
-    List<Course> courses;
+    List<Course> courses = new ArrayList<>();
     private OnCourseListener mOnCourseListener;
 
     public ClassAdapter(List<Course> courses, OnCourseListener onCourseListener){
@@ -38,7 +38,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
     @Override
     public int getItemCount() {
-        return courses.size();
+        return courses == null ? 0 : courses.size();
     }
 
     public void setCourses(List<Course> courses){

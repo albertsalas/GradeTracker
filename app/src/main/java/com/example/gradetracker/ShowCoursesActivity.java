@@ -1,6 +1,8 @@
 package com.example.gradetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+
 import android.widget.Toolbar;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,7 +37,7 @@ public class ShowCoursesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_courses);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
 
         clear_button = findViewById(R.id.clear_courses_button);
 
@@ -56,7 +58,10 @@ public class ShowCoursesActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.COURSE_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getCourseDao();
 
         courses = dao.getAllCourses();
 

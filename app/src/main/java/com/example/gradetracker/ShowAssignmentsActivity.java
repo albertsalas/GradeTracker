@@ -44,7 +44,7 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
         clear_button = findViewById(R.id.clear_assignments_button);
         addAssignmentButton = findViewById(R.id.add_assignment_button);
 
-        assignments = dao.getAllAssignment();
+        //assignments = dao.getAllAssignment();
 
         ListView assignmentsView = findViewById(R.id.assignment_list);
 

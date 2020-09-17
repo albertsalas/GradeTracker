@@ -97,7 +97,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
         long earnedScore = Long.parseLong(mEarnedScore.getText().toString());
         long maxScore = Long.parseLong(mMaxScore.getText().toString());
 
-        Assignment = dao.getAllAssignment();
+        //Assignment = dao.getAllAssignment();
 
         if(!detail.isEmpty()){
             mAssignment.setDetails(detail);
@@ -132,7 +132,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
 
     void deleteAssignment(){
 
-        Assignment = dao.getAllAssignment();
+        //Assignment = dao.getAllAssignment();
         dao.delete(mAssignment);
         Toast.makeText(this, "Assignment was deleted.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditAssignmentActivity.this,LoginActivity.class);

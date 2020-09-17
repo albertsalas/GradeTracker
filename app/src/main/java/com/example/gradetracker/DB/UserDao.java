@@ -26,4 +26,16 @@ public interface UserDao {
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE)
     List<User> getAllUsers();
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET username = :u")
+    void updateUsername(String u);
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET password = :p")
+    void updatePassword(String p);
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET firstName = :f")
+    void updateFirstName(String f);
+
+    @Query("UPDATE " + AppDatabase.USER_TABLE + " SET lastName = :l")
+    void updateLastName(String l);
 }

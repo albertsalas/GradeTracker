@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(user.getUsername().equals(tempUsername) && user.getPassword().equals(tempPassword)){
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             sendToSchedule.putExtra("username", tempUsername);
-                            sendToSchedule.putExtra("uID", user.getUserID());
+                            sendToSchedule.putExtra("userID", user.getUserID());
                             startActivity(sendToSchedule);
                         }
                     }

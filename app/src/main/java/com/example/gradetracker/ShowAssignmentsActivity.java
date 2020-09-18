@@ -29,6 +29,7 @@ import com.example.gradetracker.User;
 public class ShowAssignmentsActivity extends AppCompatActivity {
 
     List<Assignment> assignments;
+    List<Assignment> tempAssignments;
     AssignmentDao dao;
 
     Button clear_button;
@@ -37,8 +38,12 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
 
     //User mUser = MainActivity.mUser;
     //static Course mCourse = ClassScheduleActivity.mCourse;
-    static  Assignment mAssignment = null;
+    static Assignment mAssignment = null;
     ListView assignmentsView;
+
+    GradeCategory gradeCategory;
+    public int userID;
+    public int courseID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +54,48 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
         clear_button = findViewById(R.id.clear_assignments_button);
         addAssignmentButton = findViewById(R.id.add_assignment_button);
 
+        if(getIntent().hasExtra("categoryID")){
+        userID = getIntent().getExtras().getInt("userID");
+        courseID = getIntent().getExtras().getInt("courseID");
+        gradeCategory = getIntent().getParcelableExtra("categoryID");
+        }
+
+//        if(gradeCategory.getTitle().equals("Exams"))
+//            setTitle("Exams");
+//        else if(gradeCategory.getTitle().equals("Quizzes"))
+//            setTitle("Quizzes");
+//        else if(gradeCategory.getTitle().equals("Homework"))
+//            setTitle("Homework");
+
         dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
                 .allowMainThreadQueries()
                 .build()
                 .getAssignmentDao();
-        assignments = new ArrayList<>();
 
+        assignments = new ArrayList<>();
         assignments = dao.getAllAssignments();
+
+        tempAssignments = new ArrayList<>();
+
+           // System.out.println(gradeCategory.getCategoryID());
+
+
 
         assignmentsView = (ListView)findViewById(R.id.assignment_list);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.activity_list_item, assignments);
-        assignmentsView.setAdapter(arrayAdapter);
-        //assignmentsView.setAdapter(new ShowAssignmentsActivity.AssignmentListAdapter( this, assignments) );
+        assignmentsView.setAdapter(new ShowAssignmentsActivity.AssignmentListAdapter( this, assignments) );
 
         assignmentsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //make course object = the course at i which is the box clicked
                 mAssignment = assignments.get(position);
-                Intent intent = new Intent(getApplicationContext(), EditAssignmentActivity.class);
+                Toast.makeText(ShowAssignmentsActivity.this, mAssignment.getDetails(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ShowAssignmentsActivity.this, EditAssignmentActivity.class);
+                intent.putExtra("assignmentID", mAssignment.getAssignmentID());
+                intent.putExtra("userID", userID);
+                intent.putExtra("courseID", courseID);
+                intent.putExtra("categoryID", gradeCategory);
                 startActivity(intent);
             }
         });
@@ -77,6 +104,9 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowAssignmentsActivity.this, AddAssignmentActivity.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("courseID", courseID);
+                intent.putExtra("categoryID", gradeCategory.getCategoryID());
                 startActivity(intent);
             }
         });
@@ -108,13 +138,13 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-
             LayoutInflater inflater = ShowAssignmentsActivity.this.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.row_layout, null,true);
             TextView rowField = rowView.findViewById(R.id.row_id);
 
             //set the value of a row in the ListView to the flight info using toString()
-            rowField.setText(assignments.get(position).toString());
+            rowField.setText(assignments.get(position).getDetails() +"    "+
+                    assignments.get(position).getEarnedScore() +"/"+ assignments.get(position).getMaxScore());
             return rowView;
         }
     }

@@ -1,19 +1,20 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.gradetracker.Activities.ClassScheduleActivity;
+import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
+import com.example.gradetracker.Enrollment;
+import com.example.gradetracker.R;
 
 public class AddClassActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class AddClassActivity extends AppCompatActivity {
     CourseDao courseDao;
     Enrollment enrollment;
     Bundle ex;
-    int extraID;
+    int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class AddClassActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_class);
 
         ex = getIntent().getExtras();
-        extraID = ex.getInt("uID");
+        userID = ex.getInt("userID");
 
         instructor = findViewById(R.id.addCourseInstructor);
         title = findViewById(R.id.addCourseTitle);
@@ -54,8 +55,6 @@ public class AddClassActivity extends AppCompatActivity {
                 .build()
                 .getCourseDao();
 
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
         setTitle("Add Course");
 
         saveCourse();
@@ -69,7 +68,7 @@ public class AddClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddClassActivity.this, ClassScheduleActivity.class);
-                intent.putExtra("uID", extraID);
+                intent.putExtra("userID", userID);
 
                 String t = title.getText().toString();
                 String i = instructor.getText().toString();
@@ -77,14 +76,12 @@ public class AddClassActivity extends AppCompatActivity {
                 String sd = startDate.getText().toString();
                 String ed = endDate.getText().toString();
 
-                Log.i("DATE", sd);
-
                 Course newCourse = new Course(i, t, d, sd, ed);
                 courseDao.insert(newCourse);
 
                 Course tempCourse = courseDao.getLastCourse();
 
-                enrollmentDao.insert(new Enrollment(extraID, tempCourse.getCourseID()));
+                enrollmentDao.insert(new Enrollment(userID, tempCourse.getCourseID()));
 
                 startActivity(intent);
             }

@@ -15,9 +15,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     List<GradeCategory> categories = new ArrayList<>();
     private OnCategoryListener mOnCategoryListener;
 
-    public CategoriesAdapter(List<Course> courses, OnCourseListener onCourseListener){
-        this.categories = courses;
-        this.mOnCategoryListener = onCourseListener;
+    public CategoriesAdapter(List<GradeCategory> categories, OnCategoryListener onCategoryListener){
+        this.categories = categories;
+        this.mOnCategoryListener = onCategoryListener;
     }
     @Override
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,13 +26,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         return new CategoryHolder(itemView, mOnCategoryListener);
     }
     //set the cards to their respective info
-    //TODO: still need to pull the grades, right now just using the courseID to fill in
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
         GradeCategory currentCategory = categories.get(position);
-        holder.textViewTitle.setText(currentCourse.getTitle());
-        holder.textViewDescription.setText(currentCourse.getDescription());
-        holder.textViewPriority.setText(String.valueOf(currentCourse.getCourseID()));
+        holder.textViewTitle.setText(currentCategory.getTitle());
+        holder.textViewPriority.setText(Double.toString(currentCategory.getWeight()));
     }
 
     @Override
@@ -40,23 +38,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         return categories == null ? 0 : categories.size();
     }
 
-    public void setCourses(List<GradeCategory> categories){
+    public void setCategories(List<GradeCategory> categories){
         this.categories = categories;
         notifyDataSetChanged();
     }
 
     class CategoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView textViewTitle;
-        private TextView textViewDescription;
         private TextView textViewPriority;
         OnCategoryListener onCategoryListener;
 
-        public CategoryHolder(View itemView, OnCategoryListener onCourseListener){
+        public CategoryHolder(View itemView, OnCategoryListener onCategoryListener){
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewPriority = itemView.findViewById(R.id.text_view_priority);
-            this.onCategoryListener = onCourseListener;
+            this.onCategoryListener = onCategoryListener;
             itemView.setOnClickListener(this);
         }
 
@@ -67,6 +63,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     public interface OnCategoryListener{
-        void onCourseClick(int position);
+        void onCategoryClick(int position);
     }
 }

@@ -55,9 +55,10 @@
         android:text="Assigned Date"/>
 
     <EditText
+        android:id="@+id/assigned_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/assigned_date" />
+        android:inputType="date" />
 
     <TextView
         android:layout_width="match_parent"
@@ -65,29 +66,10 @@
         android:text="Due Date"/>
 
     <EditText
+        android:id="@+id/due_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/due_date" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Category ID"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/category_id" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Course ID"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/course_id" />
+        android:inputType="date" />
 
     <Button
         android:id="@+id/submit_button"

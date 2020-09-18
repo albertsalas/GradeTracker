@@ -17,7 +17,13 @@ import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
 import com.example.gradetracker.R;
 
-
+/**
+ * Activity for adding assignments and inserting them into the assignment table
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class AddAssignmentActivity extends AppCompatActivity {
 
     EditText mDetail;
@@ -35,7 +41,6 @@ public class AddAssignmentActivity extends AppCompatActivity {
     public int courseID;
     public int categoryID;
 
-    //static Course mCourse = ShowCoursesActivity.mCourse;
     static  Assignment mAssignment = null;
 
     @Override
@@ -76,6 +81,9 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 .getAssignmentDao();
     }
 
+    /**
+     * Function for adding new assignment
+     */
     public void addNewAssignment(){
         String detail = mDetail.getText().toString();
         String dueDate = mDueDate.getText().toString();

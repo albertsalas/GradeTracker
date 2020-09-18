@@ -23,6 +23,8 @@ import java.util.List;
 
 /**
  * Activity for displaying the login and sign-up button
+ * @author Albert
+ * @author Ben
  * @author Ozzie
  * @version 1.0
  */

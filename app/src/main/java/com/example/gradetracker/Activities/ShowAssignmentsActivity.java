@@ -25,6 +25,13 @@ import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 
+/**
+ * Activity for showing the current assignments
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class ShowAssignmentsActivity extends AppCompatActivity {
 
     List<Assignment> assignments;

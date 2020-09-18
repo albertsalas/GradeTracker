@@ -13,9 +13,15 @@ import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 import java.text.DateFormat;
 import java.util.Date;
 
+/**
+ * Class for interacting with the course database
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 @Entity(tableName = AppDatabase.COURSE_TABLE)
 @TypeConverters({DateTypeConverter.class})
-
 public class Course implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)

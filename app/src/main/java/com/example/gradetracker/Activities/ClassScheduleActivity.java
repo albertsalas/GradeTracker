@@ -29,8 +29,10 @@ import java.util.List;
 
 /**
  * ClassScheduleActivity is for showing the user's current courses
- * @author
- * @version
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
  */
 public class ClassScheduleActivity extends AppCompatActivity implements ClassAdapter.OnCourseListener {
     private RecyclerView recyclerView;

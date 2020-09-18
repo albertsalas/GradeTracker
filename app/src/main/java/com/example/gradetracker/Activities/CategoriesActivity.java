@@ -21,6 +21,13 @@ import com.example.gradetracker.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for showing the categories
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class CategoriesActivity extends AppCompatActivity implements CategoriesAdapter.OnCategoryListener {
 
     private RecyclerView recyclerView;

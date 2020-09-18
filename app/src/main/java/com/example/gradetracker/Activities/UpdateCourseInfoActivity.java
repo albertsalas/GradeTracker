@@ -16,6 +16,10 @@ import com.example.gradetracker.R;
 
 /**
  * UpdateCourseInfoActivity is for updating the current course information
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
  */
 public class UpdateCourseInfoActivity extends AppCompatActivity {
     EditText course;

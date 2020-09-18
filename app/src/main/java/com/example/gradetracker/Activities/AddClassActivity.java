@@ -16,6 +16,13 @@ import com.example.gradetracker.DB.EnrollmentDao;
 import com.example.gradetracker.Enrollment;
 import com.example.gradetracker.R;
 
+/**
+ * Activity for adding classes for the user
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class AddClassActivity extends AppCompatActivity {
 
     EditText instructor;
@@ -61,6 +68,9 @@ public class AddClassActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Function for saving the course into the course database
+     */
     private void saveCourse(){
 
         add = findViewById(R.id.addCourseButton);

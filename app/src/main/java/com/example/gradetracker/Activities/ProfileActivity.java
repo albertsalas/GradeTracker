@@ -16,6 +16,8 @@ import com.example.gradetracker.R;
 /**
  * Activity for displaying the user's profile
  * @author Albert
+ * @author Ben
+ * @author Ozzie
  * @version 1.0
  */
 public class ProfileActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editLastName;
     Button saveProfile;
     UserDao userDao;
+    int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,11 @@ public class ProfileActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getUserDao();
+        userID = getIntent().getExtras().getInt("userID");
+        editUsername.setText(userDao.getUser(userID).getUsername());
+        editFirstName.setText(userDao.getUser(userID).getFirstName());
+        editLastName.setText(userDao.getUser(userID).getLastName());
+
 
         updateProfile();
     }

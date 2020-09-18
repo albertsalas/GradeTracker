@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateCourseInfoActivity"></activity>
-        <activity android:name=".CourseInfoActivity" />
+        <activity android:name=".Activities.CategoriesActivity"></activity>
+        <activity android:name=".UpdateCourseInfoActivity" />
+        <activity android:name=".Activities.CourseInfoActivity" />
         <activity android:name=".AssignmentActivity" />
         <activity android:name=".AddClassActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ClassScheduleActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.ClassScheduleActivity" />
+        <activity android:name=".Activities.SignupActivity" />
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,25 +42,22 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <!--        <activity-->
-        <!--            android:name=".EditAssignmentActivity"-->
-        <!--            android:label="Grade Tracker">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-        <!--                <category android:name="android.intent.category.DEFAULT" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
-<!--        <activity-->
-<!--            android:name=".EditCourseActivity"-->
-<!--            android:label="Grade Tracker">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".EditAssignmentActivity" -->
+        <!-- android:label="Grade Tracker"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".EditCourseActivity" -->
+        <!-- android:label="Grade Tracker"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".ShowCoursesActivity"
             android:label="Grade Tracker">

@@ -1,4 +1,4 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -12,9 +12,16 @@ import android.widget.Toast;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.UserDao;
+import com.example.gradetracker.R;
+import com.example.gradetracker.User;
 
 import java.util.List;
 
+/**
+ * Activity for signing up
+ * @author Ozzie
+ * @version 1.0
+ */
 public class SignupActivity extends AppCompatActivity {
     Button signup;
     EditText firstName;
@@ -48,13 +55,16 @@ public class SignupActivity extends AppCompatActivity {
 
         insertInfo();
     }
-    //function for inserting info into user database if the right conditions are met
+
+    /**
+     * Function for inserting info into the user databse if the right conditions are met
+     */
     void insertInfo(){
         signup = findViewById(R.id.signupB);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendToLogin = new Intent(SignupActivity.this, LoginActivity.class);
+                Intent sendToLogin = new Intent(SignupActivity.this, LoginActivity.class); // create intent for when sign-up is successful
 
                 //Displays toast for empty fields
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")

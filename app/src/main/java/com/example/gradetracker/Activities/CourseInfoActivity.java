@@ -1,12 +1,10 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,9 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.gradetracker.DB.AppDatabase;
-import com.example.gradetracker.DB.CourseDao;
+import com.example.gradetracker.Course;
+import com.example.gradetracker.R;
 
+/**
+ * Activity for displaying course information
+ * @author
+ * @version
+ */
 public class CourseInfoActivity extends AppCompatActivity {
 
     TextView course;
@@ -24,9 +27,9 @@ public class CourseInfoActivity extends AppCompatActivity {
     TextView description;
     TextView startDate;
     TextView endDate;
-    Button viewAssignments;
+    Button viewGrades;
     Course currentCourse;
-    CourseDao courseDao;
+    public int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,8 @@ public class CourseInfoActivity extends AppCompatActivity {
         setTitle("Course Information");
         if(getIntent().hasExtra("courseID")){
             currentCourse = getIntent().getParcelableExtra("courseID");
+            userID = getIntent().getExtras().getInt("userID");
         }
-
-//        courseDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.COURSE_TABLE)
-//                .allowMainThreadQueries()
-//                .build()
-//                .getCourseDao();
 
         course = findViewById(R.id.courseInfoTitle);
         instructor = findViewById(R.id.courseInfoInstructor);
@@ -54,11 +53,13 @@ public class CourseInfoActivity extends AppCompatActivity {
         startDate.setText(currentCourse.getStartDate());
         endDate.setText(currentCourse.getEndDate());
 
-        viewAssignments = findViewById(R.id.courseInfoViewAssignmentsButton);
-        viewAssignments.setOnClickListener(new View.OnClickListener() {
+        viewGrades = findViewById(R.id.courseInfoViewAssignmentsButton);
+        viewGrades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseInfoActivity.this, AssignmentActivity.class);
+                Intent intent = new Intent(CourseInfoActivity.this, CategoriesActivity.class);
+                intent.putExtra("courseID", currentCourse.getCourseID());
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });
@@ -66,21 +67,36 @@ public class CourseInfoActivity extends AppCompatActivity {
 
     }
 
-    //menu bar for displaying the settings button on this activity
+    /**
+     * Menu for displaying the settings button that's re-purposed for this activity
+     * @param menu is the menu for course updating
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_course_menu, menu); // was meant for adding course but re-purposed it for this activity
+        inflater.inflate(R.menu.add_course_menu, menu);
         return true;
     }
-    //for clicking the menu options
+
+    /**
+     * Function for clicking the items in the menu bar
+     * @param item is the current item clicked
+     * @return the item clicked
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.settings: //course settings
                 Intent intent = new Intent(this, UpdateCourseInfoActivity.class);
                 intent.putExtra("courseID", currentCourse.getCourseID());
+                intent.putExtra("userID", userID);
                 startActivity(intent);
+                break;
+            case R.id.logoutIcon:
+                Intent logoutIntent = new Intent(this, LoginActivity.class);
+                startActivity(logoutIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

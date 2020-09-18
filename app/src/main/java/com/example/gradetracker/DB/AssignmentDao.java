@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.gradetracker.Assignment;
 
+import java.util.List;
+
 @Dao
 public interface AssignmentDao {
     @Insert
@@ -21,4 +23,7 @@ public interface AssignmentDao {
 
     @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE + " WHERE assignmentID = :id")
     Assignment getAssignment(int id);
+
+    @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE)
+    List<Assignment> getAllAssignments();
 }

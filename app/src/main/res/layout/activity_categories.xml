@@ -5,15 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ClassScheduleActivity">
+    tools:context=".Activities.CategoriesActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_add"
-        android:layout_margin="32dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view"
@@ -21,6 +14,5 @@
         android:layout_height="match_parent"
 
         tools:listitem="@layout/class_card"/>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

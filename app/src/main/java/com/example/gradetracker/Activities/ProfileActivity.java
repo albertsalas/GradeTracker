@@ -1,8 +1,7 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,13 @@ import android.widget.Toast;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.UserDao;
+import com.example.gradetracker.R;
 
+/**
+ * Activity for displaying the user's profile
+ * @author Albert
+ * @version 1.0
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     EditText editUsername;
@@ -20,7 +25,6 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editFirstName;
     EditText editLastName;
     Button saveProfile;
-
     UserDao userDao;
 
     @Override
@@ -42,6 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
         updateProfile();
     }
 
+    /**
+     * Function for updating the new values within the user profile
+     */
     private void updateProfile() {
         saveProfile = findViewById(R.id.saveProfile);
         saveProfile.setOnClickListener(new View.OnClickListener() {

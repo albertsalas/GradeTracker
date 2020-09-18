@@ -31,4 +31,5 @@ public interface CourseDao {
     @Query("SELECT * FROM " + AppDatabase.COURSE_TABLE + " Order BY courseID DESC LIMIT 1 ")
     Course getLastCourse();
 
+
 }

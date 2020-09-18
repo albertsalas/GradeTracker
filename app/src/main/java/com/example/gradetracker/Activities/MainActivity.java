@@ -12,8 +12,10 @@ import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
+import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.DB.UserDao;
 import com.example.gradetracker.Enrollment;
+import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 import com.example.gradetracker.User;
 
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     Button signup;
     UserDao mUsersDAO;
     List<User> mUsers;
+    List<GradeCategory> mCategories;
+    GradeCategoryDao gradeCategoryDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getUserDao();
+        gradeCategoryDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_CATEGORY_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeCategoryDao();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         basicSetup();
@@ -70,10 +78,19 @@ public class MainActivity extends AppCompatActivity {
      */
     public void basicSetup(){
         mUsers = mUsersDAO.getAllUsers();
-
+        mCategories = gradeCategoryDao.getAllCategories();
         if(mUsers.isEmpty()){
             User user = new User("admin","password","test", "name");
             mUsersDAO.insert(user);
+        }
+        if(mCategories.isEmpty()){
+            GradeCategory one = new GradeCategory("Exams", 40.0, 1, "9/17/2020");
+            GradeCategory two = new GradeCategory("Quizzes", 30.0, 2, "9/17/2020");
+            GradeCategory three = new GradeCategory("Homework", 30.0, 3, "9/17/2020");
+            gradeCategoryDao.insert(one);
+            gradeCategoryDao.insert(two);
+            gradeCategoryDao.insert(three);
+
         }
     }
 }

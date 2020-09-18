@@ -42,31 +42,32 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> <!-- <activity -->
-        <!-- android:name=".EditAssignmentActivity" -->
-        <!-- android:label="Grade Tracker"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!-- <activity -->
-        <!-- android:name=".EditCourseActivity" -->
-        <!-- android:label="Grade Tracker"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <activity
-            android:name=".ShowCoursesActivity"
-            android:label="Grade Tracker">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
+         <activity
+         android:name=".EditAssignmentActivity"
+         android:label="Grade Tracker">
+         <intent-filter>
+         <action android:name="android.intent.action.MAIN" />
+         <category android:name="android.intent.category.DEFAULT" />
+         </intent-filter>
+         </activity>
+<!--         <activity -->
+<!--         android:name=".EditCourseActivity" -->
+<!--         android:label="Grade Tracker"> -->
+<!--         <intent-filter> -->
+<!--         <action android:name="android.intent.action.MAIN" /> -->
+<!--         <category android:name="android.intent.category.DEFAULT" /> -->
+<!--         </intent-filter> -->
+<!--         </activity> -->
+<!--        <activity-->
+<!--            android:name=".ShowCoursesActivity"-->
+<!--            android:label="Grade Tracker">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".AddCourseActivity"
             android:label="Grade Tracker">

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import com.example.gradetracker.Assignment;
 import com.example.gradetracker.DB.AppDatabase;
@@ -25,42 +26,51 @@ public class EditAssignmentActivity extends AppCompatActivity {
     EditText mEarnedScore;
     EditText mMaxScore;
     EditText mAssignedDate;
-    EditText mCategoryID;
-    EditText mCourseID;
+
 
     List<Assignment>Assignment;
     AssignmentDao dao;
-
     Button submitButton;
     Button returnToAssignments;
     Button deleteButton;
+    int assignmentID;
+    int userID;
+    int courseID;
+    GradeCategory gradeCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_course);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_edit_assignment);
 
-        mDetail = findViewById(R.id.mDetail);
+        assignmentID = getIntent().getExtras().getInt("assignmentID");
+        if(getIntent().hasExtra("categoryID")){
+            userID = getIntent().getExtras().getInt("userID");
+            courseID = getIntent().getExtras().getInt("courseID");
+            gradeCategory = getIntent().getParcelableExtra("categoryID");
+        }
+
+        dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getAssignmentDao();
+
+        mDetail = findViewById(R.id.details);
         mDueDate = findViewById(R.id.due_date);
         mEarnedScore = findViewById(R.id.earned_score);
         mMaxScore = findViewById(R.id.max_score);
         mAssignedDate = findViewById(R.id.assigned_date);
-        mCategoryID = findViewById(R.id.category_id);
-        mCourseID = findViewById(R.id.course_id);
+
 
         returnToAssignments = findViewById(R.id.return_button);
         deleteButton = findViewById(R.id.delete_button);
         submitButton = findViewById(R.id.submit_button);
 
-        mDetail.setHint(mAssignment.getDetails());
-        mDueDate.setHint((CharSequence) mAssignment.getDueDate());
-        mEarnedScore.setHint((int) mAssignment.getEarnedScore());
-        mMaxScore.setHint((int) mAssignment.getMaxScore());
-        mAssignedDate.setHint((CharSequence) mAssignment.getAssignedDate());
-        mCategoryID.setHint((int) mAssignment.getCategoryID());
-        mCourseID.setHint((int) mAssignment.getCourseId());
+        mDetail.setText(mAssignment.getDetails());
+        mDueDate.setText(mAssignment.getDueDate());
+        mEarnedScore.setText(String.valueOf(mAssignment.getEarnedScore()) );
+        mMaxScore.setText(String.valueOf(mAssignment.getMaxScore()));
+        mAssignedDate.setText((CharSequence) mAssignment.getAssignedDate());
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,11 +101,10 @@ public class EditAssignmentActivity extends AppCompatActivity {
         String detail = mDetail.getText().toString();
         String dueDate = mDueDate.getText().toString();
         String assignedDate = mAssignedDate.getText().toString();
-        int categoryID = Integer.parseInt(mCategoryID.getText().toString());
-        int courseId = Integer.parseInt(mCourseID.getText().toString());
 
-        long earnedScore = Long.parseLong(mEarnedScore.getText().toString());
-        long maxScore = Long.parseLong(mMaxScore.getText().toString());
+
+        double earnedScore = Double.parseDouble(mEarnedScore.getText().toString());
+        double maxScore = Double.parseDouble(mMaxScore.getText().toString());
 
         Assignment = dao.getAllAssignments();
 
@@ -108,12 +117,6 @@ public class EditAssignmentActivity extends AppCompatActivity {
         if(!assignedDate.toString().isEmpty()){
             mAssignment.setAssignedDate(assignedDate);
         }
-        if(!String.valueOf(categoryID).equals("")){
-            mAssignment.setCategoryID(categoryID);
-        }
-        if(!String.valueOf(courseId).equals("")){
-            mAssignment.setCourseId(courseId);
-        }
         if(!String.valueOf(earnedScore).equals("")){
             mAssignment.setEarnedScore(earnedScore);
         }
@@ -125,6 +128,9 @@ public class EditAssignmentActivity extends AppCompatActivity {
         Toast.makeText(this, "Assignment was updated.", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(EditAssignmentActivity.this, ShowAssignmentsActivity.class);
+        intent.putExtra("userID", userID);
+        intent.putExtra("courseID", courseID);
+        intent.putExtra("categoryID", gradeCategory);
         startActivity(intent);
 
         return true;
@@ -136,6 +142,9 @@ public class EditAssignmentActivity extends AppCompatActivity {
         dao.delete(mAssignment);
         Toast.makeText(this, "Assignment was deleted.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditAssignmentActivity.this,ShowAssignmentsActivity.class);
+        intent.putExtra("userID", userID);
+        intent.putExtra("courseID", courseID);
+        intent.putExtra("categoryID", gradeCategory);
         startActivity(intent);
     }
 }

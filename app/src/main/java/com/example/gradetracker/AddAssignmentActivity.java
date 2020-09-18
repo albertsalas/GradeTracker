@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.util.Date;
 import java.util.List;
@@ -30,12 +31,14 @@ public class AddAssignmentActivity extends AppCompatActivity {
     EditText mCategoryID;
     EditText mCourseID;
 
-
     Button mSubmitButton;
     Button mReturnButton;
 
     List<Assignment>Assignment;
     AssignmentDao dao;
+
+    public int courseID;
+    public int categoryID;
 
     //static Course mCourse = ShowCoursesActivity.mCourse;
     static  Assignment mAssignment = null;
@@ -45,13 +48,14 @@ public class AddAssignmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_assignment);
 
+        courseID = getIntent().getExtras().getInt("courseID");
+        categoryID = getIntent().getExtras().getInt("categoryID");
+
         mDetail = findViewById(R.id.mDetail);
         mDueDate = findViewById(R.id.due_date);
         mEarnedScore = findViewById(R.id.earned_score);
         mMaxScore = findViewById(R.id.max_score);
         mAssignedDate = findViewById(R.id.assigned_date);
-        mCategoryID = findViewById(R.id.category_id);
-        mCourseID = findViewById(R.id.course_id);
 
         mReturnButton = findViewById(R.id.return_button);
         mSubmitButton = findViewById(R.id.submit_button);
@@ -70,27 +74,29 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getAssignmentDao();
     }
 
-    boolean addNewAssignment(){
+    public void addNewAssignment(){
         String detail = mDetail.getText().toString();
         String dueDate = mDueDate.getText().toString();
         String assignedDate = mAssignedDate.getText().toString();
-        int categoryID = Integer.parseInt(mCategoryID.getText().toString());
-        int courseId = Integer.parseInt(mCourseID.getText().toString());
-
         long earnedScore = Long.parseLong(mEarnedScore.getText().toString());
         long maxScore = Long.parseLong(mMaxScore.getText().toString());
 
-        Assignment = dao.getAllAssignments();
-        Assignment newAssignment = new Assignment(detail,earnedScore,maxScore,assignedDate,dueDate,categoryID,courseId);
+        //Assignment = dao.getAllAssignments();
+        Assignment newAssignment = new Assignment(detail,maxScore,earnedScore,assignedDate,dueDate,categoryID,courseID);
         dao.insert(newAssignment);
 
         Toast.makeText(this, "Assignment was added.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AddAssignmentActivity.this, ShowAssignmentsActivity.class);
+        intent.putExtra("courseID", courseID);
+        intent.putExtra("categoryID", categoryID);
         startActivity(intent);
-
-        return true;
     }
 
 }

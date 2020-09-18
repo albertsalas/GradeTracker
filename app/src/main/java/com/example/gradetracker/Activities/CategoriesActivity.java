@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.example.gradetracker.CategoriesAdapter;
+import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 import com.example.gradetracker.ShowAssignmentsActivity;
@@ -26,6 +30,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     private RecyclerView.LayoutManager layoutManager;
     public int userID;
     public int courseID;
+    GradeCategoryDao gradeCategoryDao;
     List<GradeCategory> tempCategories = new ArrayList<>();
 
     /**
@@ -38,18 +43,18 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+        gradeCategoryDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_CATEGORY_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeCategoryDao();
         //get extra from previous activity
         if(getIntent().hasExtra("userID")){
             userID = getIntent().getExtras().getInt("userID");
             courseID = getIntent().getExtras().getInt("courseID");
         }
         setTitle("Course Grades");
-        GradeCategory one = new GradeCategory("Exams", 40.0, 1, "9/17/2020");
-        GradeCategory two = new GradeCategory("Quizzes", 30.0, 2, "9/17/2020");
-        GradeCategory three = new GradeCategory("Homework", 30.0, 3, "9/17/2020");
-        tempCategories.add(one);
-        tempCategories.add(two);
-        tempCategories.add(three);
+
+        tempCategories = gradeCategoryDao.getAllCategories();
 
         //recycler view
         recyclerView = findViewById(R.id.recycle_view);

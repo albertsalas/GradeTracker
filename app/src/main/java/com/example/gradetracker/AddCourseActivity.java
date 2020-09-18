@@ -9,14 +9,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Entity;
-import androidx.room.TypeConverters;
 
-import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.Activities.LoginActivity;
 import com.example.gradetracker.DB.CourseDao;
-import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 
-import java.sql.Date;
 import java.util.List;
 
 public class AddCourseActivity extends AppCompatActivity {
@@ -62,7 +58,7 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(AddCourseActivity.this,LoginActivity.class);
+                Intent intent = new Intent(AddCourseActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

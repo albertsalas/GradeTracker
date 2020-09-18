@@ -11,6 +11,9 @@ import android.widget.EditText;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
 
+/**
+ * UpdateCourseInfoActivity is for updating the current course information
+ */
 public class UpdateCourseInfoActivity extends AppCompatActivity {
     EditText course;
     EditText instructor;

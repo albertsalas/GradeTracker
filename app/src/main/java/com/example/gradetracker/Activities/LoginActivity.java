@@ -1,4 +1,4 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -12,9 +12,16 @@ import android.widget.Toast;
 
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.UserDao;
+import com.example.gradetracker.R;
+import com.example.gradetracker.User;
 
 import java.util.List;
 
+/**
+ * Activity for displaying the login page
+ * @author Ozzie
+ * @version 1.0
+ */
 public class LoginActivity extends AppCompatActivity {
     Button login;
     EditText username;
@@ -40,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         submitLoginInfo();
     }
 
+    /**
+     * Function for submitting login information
+     */
     public void submitLoginInfo(){
         login = findViewById(R.id.loginB);
         login.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                     StringBuilder stringBuilder = new StringBuilder();
 
                     for(User user : mUsers){
-                       // System.out.println(user.getUsername() +" "+ user.getUserID());
                         stringBuilder.append(user);
 
                         if(user.getUsername().equals(tempUsername) && user.getPassword().equals(tempPassword)){

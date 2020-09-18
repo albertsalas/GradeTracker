@@ -1,12 +1,10 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,9 +12,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.AssignmentActivity;
+import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.CourseDao;
+import com.example.gradetracker.R;
+import com.example.gradetracker.ShowAssignmentsActivity;
+import com.example.gradetracker.UpdateCourseInfoActivity;
 
+/**
+ * Activity for displaying course information
+ * @author
+ * @version
+ */
 public class CourseInfoActivity extends AppCompatActivity {
 
     TextView course;
@@ -26,7 +33,6 @@ public class CourseInfoActivity extends AppCompatActivity {
     TextView endDate;
     Button viewAssignments;
     Course currentCourse;
-    CourseDao courseDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,6 @@ public class CourseInfoActivity extends AppCompatActivity {
         if(getIntent().hasExtra("courseID")){
             currentCourse = getIntent().getParcelableExtra("courseID");
         }
-
-//        courseDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.COURSE_TABLE)
-//                .allowMainThreadQueries()
-//                .build()
-//                .getCourseDao();
 
         course = findViewById(R.id.courseInfoTitle);
         instructor = findViewById(R.id.courseInfoInstructor);
@@ -58,7 +59,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         viewAssignments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseInfoActivity.this, AssignmentActivity.class);
+                Intent intent = new Intent(CourseInfoActivity.this, ShowAssignmentsActivity.class);
                 startActivity(intent);
             }
         });
@@ -66,14 +67,23 @@ public class CourseInfoActivity extends AppCompatActivity {
 
     }
 
-    //menu bar for displaying the settings button on this activity
+    /**
+     * Menu for displaying the settings button that's re-purposed for this activity
+     * @param menu is the menu for course updating
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_course_menu, menu); // was meant for adding course but re-purposed it for this activity
+        inflater.inflate(R.menu.add_course_menu, menu);
         return true;
     }
-    //for clicking the menu options
+
+    /**
+     * Function for clicking the items in the menu bar
+     * @param item is the current item clicked
+     * @return the item clicked
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-class CourseUnitTest {
+public class CourseUnitTest {
     Course course;
 
     @Before

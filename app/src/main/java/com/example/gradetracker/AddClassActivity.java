@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.gradetracker.Activities.ClassScheduleActivity;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
@@ -67,7 +68,7 @@ public class AddClassActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddClassActivity.this,ClassScheduleActivity.class);
+                Intent intent = new Intent(AddClassActivity.this, ClassScheduleActivity.class);
                 intent.putExtra("uID", extraID);
 
                 String t = title.getText().toString();

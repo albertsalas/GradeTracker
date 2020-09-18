@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
-import com.example.gradetracker.ShowAssignmentsActivity;
 
 
 import java.util.ArrayList;
@@ -104,7 +102,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     @Override
     public void onCategoryClick(int position) {
         Intent intent = new Intent(this, ShowAssignmentsActivity.class);
-        intent.putExtra("categoryID", tempCategories.get(position));
+        intent.putExtra("categoryID", tempCategories.get(position).getCategoryID());
         intent.putExtra("userID", userID);
         intent.putExtra("courseID", courseID);
         startActivity(intent);

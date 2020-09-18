@@ -1,4 +1,4 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +10,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import java.util.Date;
 import java.util.List;
 
 import com.example.gradetracker.Assignment;
-import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
-import com.example.gradetracker.DB.CourseDao;
-import com.example.gradetracker.User;
+import com.example.gradetracker.R;
 
 
 public class AddAssignmentActivity extends AppCompatActivity {
@@ -28,13 +25,11 @@ public class AddAssignmentActivity extends AppCompatActivity {
     EditText mEarnedScore;
     EditText mMaxScore;
     EditText mAssignedDate;
-    EditText mCategoryID;
-    EditText mCourseID;
 
     Button mSubmitButton;
     Button mReturnButton;
 
-    List<Assignment>Assignment;
+    List<com.example.gradetracker.Assignment>Assignment;
     AssignmentDao dao;
 
     public int courseID;

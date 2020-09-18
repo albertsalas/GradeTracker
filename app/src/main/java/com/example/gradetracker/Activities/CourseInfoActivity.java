@@ -12,12 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.gradetracker.AssignmentActivity;
 import com.example.gradetracker.Course;
-import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.R;
-import com.example.gradetracker.ShowAssignmentsActivity;
-import com.example.gradetracker.UpdateCourseInfoActivity;
 
 /**
  * Activity for displaying course information
@@ -31,8 +27,9 @@ public class CourseInfoActivity extends AppCompatActivity {
     TextView description;
     TextView startDate;
     TextView endDate;
-    Button viewAssignments;
+    Button viewGrades;
     Course currentCourse;
+    public int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +38,7 @@ public class CourseInfoActivity extends AppCompatActivity {
         setTitle("Course Information");
         if(getIntent().hasExtra("courseID")){
             currentCourse = getIntent().getParcelableExtra("courseID");
+            userID = getIntent().getExtras().getInt("userID");
         }
 
         course = findViewById(R.id.courseInfoTitle);
@@ -55,11 +53,13 @@ public class CourseInfoActivity extends AppCompatActivity {
         startDate.setText(currentCourse.getStartDate());
         endDate.setText(currentCourse.getEndDate());
 
-        viewAssignments = findViewById(R.id.courseInfoViewAssignmentsButton);
-        viewAssignments.setOnClickListener(new View.OnClickListener() {
+        viewGrades = findViewById(R.id.courseInfoViewAssignmentsButton);
+        viewGrades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseInfoActivity.this, ShowAssignmentsActivity.class);
+                Intent intent = new Intent(CourseInfoActivity.this, CategoriesActivity.class);
+                intent.putExtra("courseID", currentCourse.getCourseID());
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });
@@ -90,7 +90,13 @@ public class CourseInfoActivity extends AppCompatActivity {
             case R.id.settings: //course settings
                 Intent intent = new Intent(this, UpdateCourseInfoActivity.class);
                 intent.putExtra("courseID", currentCourse.getCourseID());
+                intent.putExtra("userID", userID);
                 startActivity(intent);
+                break;
+            case R.id.logoutIcon:
+                Intent logoutIntent = new Intent(this, LoginActivity.class);
+                startActivity(logoutIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

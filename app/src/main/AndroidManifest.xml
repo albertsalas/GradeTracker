@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.CategoriesActivity"></activity>
-        <activity android:name=".UpdateCourseInfoActivity" />
+        <activity android:name=".Activities.UpdateCourseInfoActivity" />
         <activity android:name=".Activities.CourseInfoActivity" />
         <activity android:name=".AssignmentActivity" />
-        <activity android:name=".AddClassActivity" />
+        <activity android:name=".Activities.AddClassActivity" />
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.ClassScheduleActivity" />
         <activity android:name=".Activities.SignupActivity" />

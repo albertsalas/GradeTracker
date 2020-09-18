@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.gradetracker.AddClassActivity;
 import com.example.gradetracker.ClassAdapter;
 import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
@@ -37,7 +36,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    public int extraID;
+    public int userID;
     CourseDao courseDao;
     List<Enrollment> mEnrollments;
     EnrollmentDao enrollmentDao;
@@ -54,8 +53,8 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         setContentView(R.layout.activity_class_schedule);
 
         //get extra from previous activity
-        if(getIntent().hasExtra("uID")){
-            extraID = getIntent().getExtras().getInt("uID");
+        if(getIntent().hasExtra("userID")){
+            userID = getIntent().getExtras().getInt("userID");
         }
         setTitle("Course Schedule");
 
@@ -65,7 +64,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassScheduleActivity.this, AddClassActivity.class);
-                intent.putExtra("uID", extraID);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });
@@ -81,7 +80,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
                 .getCourseDao();
 
 
-        mEnrollments = enrollmentDao.getStudentsEnrolledClasses(extraID);
+        mEnrollments = enrollmentDao.getStudentsEnrolledClasses(userID);
         // the reason I was getting a null was because I wasn't initializing the list
         // duh that's on me for not googling sooner
         //TODO: write test for getting specific courses
@@ -123,9 +122,13 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         switch (item.getItemId()){
             case R.id.settings: //user profile settings
                 Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("userID", extraID);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
-
+                break;
+            case R.id.logoutIcon:
+                Intent logoutIntent = new Intent(this, LoginActivity.class);
+                startActivity(logoutIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -138,6 +141,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     public void onCourseClick(int position) {
         Intent intent = new Intent(this, CourseInfoActivity.class);
         intent.putExtra("courseID", tempCourses.get(position));
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 
@@ -179,10 +183,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
                     enrollmentDao.delete(deletedEnrollment);
                     tempCourses.remove(position);
                     adapter.notifyItemRemoved(position);
-                    //Intent intent = new Intent(ClassScheduleActivity.this, ClassScheduleActivity.class);
-                    //intent.putExtra("uID", extraID);
                     Toast.makeText(ClassScheduleActivity.this, "Course Deleted", Toast.LENGTH_SHORT).show();
-                    //startActivity(intent);
                     break;
 //                case ItemTouchHelper.RIGHT:
 //                    break;

@@ -104,7 +104,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     @Override
     public void onCategoryClick(int position) {
         Intent intent = new Intent(this, ShowAssignmentsActivity.class);
-        intent.putExtra("categoryID", tempCategories.get(position));
+        intent.putExtra("categoryID", tempCategories.get(position).getCategoryID());
         intent.putExtra("userID", userID);
         intent.putExtra("courseID", courseID);
         startActivity(intent);

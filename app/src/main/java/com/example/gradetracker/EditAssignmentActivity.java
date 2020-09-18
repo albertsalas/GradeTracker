@@ -36,6 +36,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
     int assignmentID;
     int userID;
     int courseID;
+    int categoryID;
     GradeCategory gradeCategory;
 
     @Override
@@ -43,12 +44,12 @@ public class EditAssignmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_assignment);
 
-        assignmentID = getIntent().getExtras().getInt("assignmentID");
-        if(getIntent().hasExtra("categoryID")){
+            assignmentID = getIntent().getExtras().getInt("assignmentID");
             userID = getIntent().getExtras().getInt("userID");
             courseID = getIntent().getExtras().getInt("courseID");
-            gradeCategory = getIntent().getParcelableExtra("categoryID");
-        }
+            categoryID = getIntent().getExtras().getInt("categoryID");
+
+        System.out.println(categoryID);
 
         dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
                 .allowMainThreadQueries()
@@ -130,7 +131,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
         Intent intent = new Intent(EditAssignmentActivity.this, ShowAssignmentsActivity.class);
         intent.putExtra("userID", userID);
         intent.putExtra("courseID", courseID);
-        intent.putExtra("categoryID", gradeCategory);
+        intent.putExtra("categoryID", categoryID);
         startActivity(intent);
 
         return true;
@@ -144,7 +145,7 @@ public class EditAssignmentActivity extends AppCompatActivity {
         Intent intent = new Intent(EditAssignmentActivity.this,ShowAssignmentsActivity.class);
         intent.putExtra("userID", userID);
         intent.putExtra("courseID", courseID);
-        intent.putExtra("categoryID", gradeCategory);
+        intent.putExtra("categoryID", categoryID);
         startActivity(intent);
     }
 }

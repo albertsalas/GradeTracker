@@ -24,6 +24,7 @@ import com.example.gradetracker.Assignment;
 import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
+import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.User;
 
 public class ShowAssignmentsActivity extends AppCompatActivity {
@@ -42,60 +43,71 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
     ListView assignmentsView;
 
     GradeCategory gradeCategory;
+    GradeCategoryDao gradeCategoryDao;
     public int userID;
     public int courseID;
+    public int categoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_assignments);
 
-        returnToMainMenuButton = findViewById(R.id.return_button);
-        clear_button = findViewById(R.id.clear_assignments_button);
-        addAssignmentButton = findViewById(R.id.add_assignment_button);
-
-        if(getIntent().hasExtra("categoryID")){
-        userID = getIntent().getExtras().getInt("userID");
-        courseID = getIntent().getExtras().getInt("courseID");
-        gradeCategory = getIntent().getParcelableExtra("categoryID");
-        }
-
-//        if(gradeCategory.getTitle().equals("Exams"))
-//            setTitle("Exams");
-//        else if(gradeCategory.getTitle().equals("Quizzes"))
-//            setTitle("Quizzes");
-//        else if(gradeCategory.getTitle().equals("Homework"))
-//            setTitle("Homework");
-
         dao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
                 .allowMainThreadQueries()
                 .build()
                 .getAssignmentDao();
+        gradeCategoryDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_CATEGORY_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeCategoryDao();
+
+        returnToMainMenuButton = findViewById(R.id.return_button);
+        clear_button = findViewById(R.id.clear_assignments_button);
+        addAssignmentButton = findViewById(R.id.add_assignment_button);
+
+
+        userID = getIntent().getExtras().getInt("userID");
+        courseID = getIntent().getExtras().getInt("courseID");
+        categoryID = getIntent().getExtras().getInt("categoryID");
+        gradeCategory = gradeCategoryDao.getGradeCategory(categoryID);
+
+        if(gradeCategory.getTitle().equals("Exams"))
+            setTitle("Exams");
+        else if(gradeCategory.getTitle().equals("Quizzes"))
+            setTitle("Quizzes");
+        else if(gradeCategory.getTitle().equals("Homework"))
+            setTitle("Homework");
+
+        System.out.println(categoryID);
+
 
         assignments = new ArrayList<>();
         assignments = dao.getAllAssignments();
 
         tempAssignments = new ArrayList<>();
 
-           // System.out.println(gradeCategory.getCategoryID());
-
+        for(Assignment a : assignments){
+            if(a.getCategoryID() == categoryID && a.getCourseId() == courseID)
+                tempAssignments.add(a);
+        }
 
 
         assignmentsView = (ListView)findViewById(R.id.assignment_list);
 
-        assignmentsView.setAdapter(new ShowAssignmentsActivity.AssignmentListAdapter( this, assignments) );
+        assignmentsView.setAdapter(new ShowAssignmentsActivity.AssignmentListAdapter( this, tempAssignments) );
 
         assignmentsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //make course object = the course at i which is the box clicked
-                mAssignment = assignments.get(position);
+                mAssignment = tempAssignments.get(position);
                 Toast.makeText(ShowAssignmentsActivity.this, mAssignment.getDetails(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ShowAssignmentsActivity.this, EditAssignmentActivity.class);
                 intent.putExtra("assignmentID", mAssignment.getAssignmentID());
                 intent.putExtra("userID", userID);
                 intent.putExtra("courseID", courseID);
-                intent.putExtra("categoryID", gradeCategory);
+                intent.putExtra("categoryID", categoryID);
                 startActivity(intent);
             }
         });
@@ -106,7 +118,7 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ShowAssignmentsActivity.this, AddAssignmentActivity.class);
                 intent.putExtra("userID", userID);
                 intent.putExtra("courseID", courseID);
-                intent.putExtra("categoryID", gradeCategory.getCategoryID());
+                intent.putExtra("categoryID", categoryID);
                 startActivity(intent);
             }
         });
@@ -143,8 +155,9 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
             TextView rowField = rowView.findViewById(R.id.row_id);
 
             //set the value of a row in the ListView to the flight info using toString()
-            rowField.setText(assignments.get(position).getDetails() +"    "+
-                    assignments.get(position).getEarnedScore() +"/"+ assignments.get(position).getMaxScore());
+            rowField.setText(tempAssignments.get(position).getDetails() +"    "+
+                    tempAssignments.get(position).getEarnedScore() +"/"+ tempAssignments.get(position).getMaxScore());
+
             return rowView;
         }
     }

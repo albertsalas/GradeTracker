@@ -1,4 +1,4 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -18,14 +18,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.gradetracker.Activities.ClassScheduleActivity;
-import com.example.gradetracker.Activities.LoginActivity;
 import com.example.gradetracker.Assignment;
-import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
 import com.example.gradetracker.DB.GradeCategoryDao;
-import com.example.gradetracker.User;
+import com.example.gradetracker.GradeCategory;
+import com.example.gradetracker.R;
 
 public class ShowAssignmentsActivity extends AppCompatActivity {
 

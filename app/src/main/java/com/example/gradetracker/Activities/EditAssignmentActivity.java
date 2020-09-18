@@ -1,4 +1,4 @@
-package com.example.gradetracker;
+package com.example.gradetracker.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,19 +8,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.example.gradetracker.Assignment;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
+import com.example.gradetracker.GradeCategory;
+import com.example.gradetracker.R;
 
-import java.util.Date;
 import java.util.List;
 
 public class EditAssignmentActivity extends AppCompatActivity {
 
-    Assignment mAssignment = ShowAssignmentsActivity.mAssignment;
+    com.example.gradetracker.Assignment mAssignment = ShowAssignmentsActivity.mAssignment;
     EditText mDetail;
     EditText mDueDate;
     EditText mEarnedScore;

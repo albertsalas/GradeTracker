@@ -29,6 +29,7 @@ public class Course implements Parcelable {
     private String description;
     private String startDate;
     private String endDate;
+    private double courseGrade;
 
     /**
      *
@@ -44,6 +45,7 @@ public class Course implements Parcelable {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.courseGrade = 0.0;
     }
 
     /**
@@ -170,10 +172,21 @@ public class Course implements Parcelable {
         this.endDate = endDate;
     }
 
+
+    public double getCourseGrade() {
+        return courseGrade;
+    }
+
+    public void setCourseGrade(double courseGrade) {
+        this.courseGrade = courseGrade;
+    }
+
+
     /**
      *
      * @return
      */
+
     @Override
     public int describeContents() {
         return 0;

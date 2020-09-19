@@ -211,19 +211,4 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
             }
         }
     };
-
-    public void calculateGrades(){
-
-
-        for(Enrollment enrollment : mEnrollments){
-            currentCourse.add(courseDao.getCourse(enrollment.getCourseID()));
-        }
-        for(Course c : currentCourse){
-            Log.i("COURSE", c.getTitle());
-            System.out.println(c.getCourseID());
-        }
-
-    }
-
-
 }

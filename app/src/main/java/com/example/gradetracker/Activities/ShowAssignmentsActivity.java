@@ -136,7 +136,10 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShowAssignmentsActivity.this,LoginActivity.class);
+                Intent intent = new Intent(ShowAssignmentsActivity.this,CategoriesActivity.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("courseID", courseID);
+                intent.putExtra("categoryID", categoryID);
                 startActivity(intent);
             }
         });

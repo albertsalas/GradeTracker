@@ -14,8 +14,10 @@ import android.view.MenuItem;
 
 import com.example.gradetracker.Assignment;
 import com.example.gradetracker.CategoriesAdapter;
+import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
+import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.DB.GradeDao;
 import com.example.gradetracker.Grade;
@@ -46,6 +48,9 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     List<Assignment> assignments;
     GradeDao gradeDao;
     List<Grade> grades;
+    List<GradeCategory> gradeWeights = new ArrayList<>();
+    CourseDao courseDao;
+    Course course;
 
 
     /**
@@ -72,17 +77,16 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
                 .allowMainThreadQueries()
                 .build()
                 .getAssignmentDao();
+        courseDao = Room.databaseBuilder(this,AppDatabase.class, AppDatabase.COURSE_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getCourseDao();
         //get extra from previous activity
         if(getIntent().hasExtra("userID")){
             userID = getIntent().getExtras().getInt("userID");
             courseID = getIntent().getExtras().getInt("courseID");
         }
         setTitle("Course Grades");
-
-        grades = gradeDao.getAllGradesbyCourseID(courseID);
-        for(Grade g :grades){
-            System.out.println(g.getScore());
-        }
 
         tempCategories = gradeCategoryDao.getAllCategories();
 
@@ -92,6 +96,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
         recyclerView.setHasFixedSize(true);
         adapter = new CategoriesAdapter(tempCategories, this);
         recyclerView.setAdapter(adapter);
+        weightedGrades();
     }
 
     /**
@@ -138,6 +143,30 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
         intent.putExtra("userID", userID);
         intent.putExtra("courseID", courseID);
         startActivity(intent);
+    }
+
+    public void weightedGrades(){
+        grades = gradeDao.getAllGradesbyCourseID(courseID);
+        gradeWeights = gradeCategoryDao.getAllCategories();
+        double newsum = 0;
+        for(GradeCategory g: gradeWeights){
+            assignments = assignmentDao.getAllAssignmentsByCategory(g.getCategoryID());
+            double sum = 0;
+            double totalPoints = 0;
+            for(Assignment a: assignments){
+                if(a.getCourseId() == courseID){
+                    sum += a.getEarnedScore();
+                    totalPoints += a.getMaxScore();
+                }
+            }
+            if(totalPoints != 0){
+                newsum += ((sum / totalPoints) * (g.getWeight() / 100));
+            }
+        }
+        course = courseDao.getCourse(courseID);
+        course.setCourseGrade(newsum * 100);
+        courseDao.update(course);
+
     }
 
 }

@@ -33,4 +33,7 @@ public interface AssignmentDao {
 
     @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE + " Order BY assignmentID DESC LIMIT 1 ")
     Assignment getLastAssignment();
+
+    @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE + " WHERE categoryID = :catID ")
+    List<Assignment> getAllAssignmentsByCategory(int catID);
 }

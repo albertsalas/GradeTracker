@@ -10,13 +10,11 @@ import androidx.room.TypeConverters;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 
-import java.text.DateFormat;
-import java.util.Date;
 
 /**
- * Class for interacting with the course database
+ * Represents a course/class at a school
+ *
  * @author Albert
- * @author Ben
  * @author Ozzie
  * @version 1.0
  */
@@ -32,6 +30,14 @@ public class Course implements Parcelable {
     private String startDate;
     private String endDate;
 
+    /**
+     *
+     * @param instructor the course's instructor
+     * @param title the course title
+     * @param description the course description
+     * @param startDate the course start date
+     * @param endDate the course end date
+     */
     public Course(String instructor, String title, String description, String startDate, String endDate) {
         this.instructor = instructor;
         this.title = title;
@@ -40,6 +46,10 @@ public class Course implements Parcelable {
         this.endDate = endDate;
     }
 
+    /**
+     *
+     * @param in
+     */
     protected Course(Parcel in) {
         courseID = in.readInt();
         instructor = in.readString();
@@ -49,6 +59,9 @@ public class Course implements Parcelable {
         endDate = in.readString();
     }
 
+    /**
+     *
+     */
     public static final Creator<Course> CREATOR = new Creator<Course>() {
         @Override
         public Course createFromParcel(Parcel in) {
@@ -61,59 +74,116 @@ public class Course implements Parcelable {
         }
     };
 
+    /**
+     *
+     * @return the course ID, used to store in the database
+     */
     public int getCourseID() {
         return courseID;
     }
 
+    /**
+     *
+     * @param courseID the new course ID
+     */
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
 
+    /**
+     *
+     * @return the course instructor
+     */
     public String getInstructor() {
         return instructor;
     }
 
+    /**
+     *
+     * @param instructor the new course instructor
+     */
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
 
+    /**
+     *
+     * @return the course title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title the new course title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return the course description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description the new course description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return the course start date
+     */
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     *
+     * @param startDate the new course start date
+     */
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     *
+     * @return the date the course ends
+     */
     public String getEndDate() {
         return endDate;
     }
 
+    /**
+     *
+     * @param endDate the new date which the course ends
+     */
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     *
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(courseID);

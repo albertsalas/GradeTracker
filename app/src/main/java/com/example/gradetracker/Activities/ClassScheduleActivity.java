@@ -9,18 +9,23 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.gradetracker.Assignment;
 import com.example.gradetracker.ClassAdapter;
 import com.example.gradetracker.Course;
 import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.DB.AssignmentDao;
 import com.example.gradetracker.DB.CourseDao;
 import com.example.gradetracker.DB.EnrollmentDao;
+import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.Enrollment;
+import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,8 +34,10 @@ import java.util.List;
 
 /**
  * ClassScheduleActivity is for showing the user's current courses
- * @author
- * @version
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
  */
 public class ClassScheduleActivity extends AppCompatActivity implements ClassAdapter.OnCourseListener {
     private RecyclerView recyclerView;
@@ -41,12 +48,16 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
     List<Enrollment> mEnrollments;
     EnrollmentDao enrollmentDao;
     List<Course> tempCourses = new ArrayList<>();
+    AssignmentDao assignmentDao;
+    GradeCategoryDao gradeCategoryDao;
+
+    List<Assignment> assignments = new ArrayList<>();
+    List<Course> currentCourse = new ArrayList<>();
 
     /**
      * onCreate is for displaying the information shown when the activity is made
      * @param savedInstanceState is the current savedInstanceState
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +89,14 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
                 .allowMainThreadQueries()
                 .build()
                 .getCourseDao();
+        gradeCategoryDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_CATEGORY_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeCategoryDao();
+        assignmentDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getAssignmentDao();
 
 
         mEnrollments = enrollmentDao.getStudentsEnrolledClasses(userID);
@@ -98,6 +117,8 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
         //for the swipe feature
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        //calculateGrades();
     }
 
     /**
@@ -126,7 +147,7 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
                 startActivity(intent);
                 break;
             case R.id.logoutIcon:
-                Intent logoutIntent = new Intent(this, LoginActivity.class);
+                Intent logoutIntent = new Intent(this, MainActivity.class);
                 startActivity(logoutIntent);
                 break;
         }
@@ -190,6 +211,19 @@ public class ClassScheduleActivity extends AppCompatActivity implements ClassAda
             }
         }
     };
+
+    public void calculateGrades(){
+
+
+        for(Enrollment enrollment : mEnrollments){
+            currentCourse.add(courseDao.getCourse(enrollment.getCourseID()));
+        }
+        for(Course c : currentCourse){
+            Log.i("COURSE", c.getTitle());
+            System.out.println(c.getCourseID());
+        }
+
+    }
 
 
 }

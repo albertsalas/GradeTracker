@@ -9,9 +9,15 @@ import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 
 import java.util.Date;
 
+/**
+ * Class for interacting with the enrollment database
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 @Entity(tableName = AppDatabase.ENROLLMENT_TABLE)
 @TypeConverters({DateTypeConverter.class})
-
 public class Enrollment {
     @PrimaryKey(autoGenerate = true)
     private int enrollmentID;

@@ -25,6 +25,13 @@ import com.example.gradetracker.DB.GradeCategoryDao;
 import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 
+/**
+ * Activity for showing the current assignments
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class ShowAssignmentsActivity extends AppCompatActivity {
 
     List<Assignment> assignments;
@@ -64,7 +71,6 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
         clear_button = findViewById(R.id.clear_assignments_button);
         addAssignmentButton = findViewById(R.id.add_assignment_button);
 
-
         userID = getIntent().getExtras().getInt("userID");
         courseID = getIntent().getExtras().getInt("courseID");
         categoryID = getIntent().getExtras().getInt("categoryID");
@@ -76,9 +82,6 @@ public class ShowAssignmentsActivity extends AppCompatActivity {
             setTitle("Quizzes");
         else if(gradeCategory.getTitle().equals("Homework"))
             setTitle("Homework");
-
-        System.out.println(categoryID);
-
 
         assignments = new ArrayList<>();
         assignments = dao.getAllAssignments();

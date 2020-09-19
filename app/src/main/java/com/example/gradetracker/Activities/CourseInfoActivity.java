@@ -17,8 +17,10 @@ import com.example.gradetracker.R;
 
 /**
  * Activity for displaying course information
- * @author
- * @version
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
  */
 public class CourseInfoActivity extends AppCompatActivity {
 

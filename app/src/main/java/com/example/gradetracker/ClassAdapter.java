@@ -12,6 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for showing the courses on the ScheduleActivity
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
     List<Course> courses = new ArrayList<>();
     private OnCourseListener mOnCourseListener;

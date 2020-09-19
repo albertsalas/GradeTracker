@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.gradetracker.Grade;
 
+import java.util.List;
+
 
 @Dao
 public interface GradeDao {
@@ -22,4 +24,7 @@ public interface GradeDao {
 
     @Query("SELECT * FROM " + AppDatabase.GRADE_TABLE + " WHERE gradeID = :id")
     Grade getGrade(int id);
+
+    @Query("SELECT * FROM " + AppDatabase.GRADE_TABLE + " WHERE courseID = :cID ")
+    List<Grade> getAllGradesbyCourseID(int cID);
 }

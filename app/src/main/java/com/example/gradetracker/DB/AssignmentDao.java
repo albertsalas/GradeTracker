@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.gradetracker.Assignment;
+import com.example.gradetracker.Course;
 
 import java.util.List;
 
@@ -26,4 +27,10 @@ public interface AssignmentDao {
 
     @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE)
     List<Assignment> getAllAssignments();
+
+    @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE + " WHERE courseID = :cID")
+    Assignment getAssignmentByCourseID(int cID);
+
+    @Query("SELECT * FROM " + AppDatabase.ASSIGNMENT_TABLE + " Order BY assignmentID DESC LIMIT 1 ")
+    Assignment getLastAssignment();
 }

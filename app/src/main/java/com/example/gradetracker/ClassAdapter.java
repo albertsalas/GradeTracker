@@ -41,7 +41,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         Course currentCourse = courses.get(position);
         holder.textViewTitle.setText(currentCourse.getTitle());
         holder.textViewDescription.setText(currentCourse.getDescription());
-        holder.textViewPriority.setText(String.valueOf(df2.format(currentCourse.getCourseGrade())));
+        holder.textViewPriority.setText(String.valueOf(df2.format(currentCourse.getCourseGrade())) + "%");
     }
 
     @Override

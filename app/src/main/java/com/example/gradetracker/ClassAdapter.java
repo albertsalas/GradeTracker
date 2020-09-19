@@ -40,7 +40,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         Course currentCourse = courses.get(position);
         holder.textViewTitle.setText(currentCourse.getTitle());
         holder.textViewDescription.setText(currentCourse.getDescription());
-        holder.textViewPriority.setText(String.valueOf(currentCourse.getCourseID()));
+        holder.textViewPriority.setText(String.valueOf(currentCourse.getCourseGrade()));
     }
 
     @Override

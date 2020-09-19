@@ -31,6 +31,7 @@ public class Course implements Parcelable {
     private String description;
     private String startDate;
     private String endDate;
+    private double courseGrade;
 
     public Course(String instructor, String title, String description, String startDate, String endDate) {
         this.instructor = instructor;
@@ -38,6 +39,7 @@ public class Course implements Parcelable {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.courseGrade = 0.0;
     }
 
     protected Course(Parcel in) {
@@ -107,6 +109,14 @@ public class Course implements Parcelable {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public double getCourseGrade() {
+        return courseGrade;
+    }
+
+    public void setCourseGrade(double courseGrade) {
+        this.courseGrade = courseGrade;
     }
 
     @Override

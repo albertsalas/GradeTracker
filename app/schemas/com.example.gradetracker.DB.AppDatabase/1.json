@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ea654af3e65355e3bfd074a3e1477885",
+    "identityHash": "2b0434ecbcaff464b753f0f026ec42bb",
     "entities": [
       {
         "tableName": "user",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "course",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`courseID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `instructor` TEXT, `title` TEXT, `description` TEXT, `startDate` TEXT, `endDate` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`courseID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `instructor` TEXT, `title` TEXT, `description` TEXT, `startDate` TEXT, `endDate` TEXT, `courseGrade` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "courseID",
@@ -87,6 +87,12 @@
             "columnName": "endDate",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "courseGrade",
+            "columnName": "courseGrade",
+            "affinity": "REAL",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -295,7 +301,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ea654af3e65355e3bfd074a3e1477885\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2b0434ecbcaff464b753f0f026ec42bb\")"
     ]
   }
 }

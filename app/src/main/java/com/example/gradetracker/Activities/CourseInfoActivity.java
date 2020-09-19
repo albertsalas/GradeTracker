@@ -99,6 +99,11 @@ public class CourseInfoActivity extends AppCompatActivity {
                 Intent logoutIntent = new Intent(this, LoginActivity.class);
                 startActivity(logoutIntent);
                 break;
+            case  R.id.home:
+                Intent home = new Intent(this, ClassScheduleActivity.class);
+                home.putExtra("userID", userID);
+                startActivity(home);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

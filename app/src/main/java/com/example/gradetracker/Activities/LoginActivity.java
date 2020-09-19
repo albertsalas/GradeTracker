@@ -19,6 +19,8 @@ import java.util.List;
 
 /**
  * Activity for displaying the login page
+ * @author Albert
+ * @author Ben
  * @author Ozzie
  * @version 1.0
  */

@@ -8,6 +8,8 @@ import com.example.gradetracker.DB.AppDatabase;
 /**
  * User is a class used to interact with the user database
  * @author Albert
+ * @author Ben
+ * @author Ozzie
  * @version 1.0
  */
 @Entity(tableName = AppDatabase.USER_TABLE)

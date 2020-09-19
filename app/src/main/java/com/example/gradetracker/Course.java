@@ -14,7 +14,9 @@ import com.example.gradetracker.DB.TypeConverters.DateTypeConverter;
 /**
  * Represents a course/class at a school
  *
- * @author Albert, Ozzie
+ * @author Albert
+ * @author Ozzie
+ * @version 1.0
  */
 @Entity(tableName = AppDatabase.COURSE_TABLE)
 @TypeConverters({DateTypeConverter.class})

@@ -18,6 +18,13 @@ import com.example.gradetracker.R;
 
 import java.util.List;
 
+/**
+ * Activity for editing the assignments
+ * @author Albert
+ * @author Ben
+ * @author Ozzie
+ * @version 1.0
+ */
 public class EditAssignmentActivity extends AppCompatActivity {
 
     com.example.gradetracker.Assignment mAssignment = ShowAssignmentsActivity.mAssignment;

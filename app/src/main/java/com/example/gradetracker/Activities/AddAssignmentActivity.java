@@ -15,6 +15,8 @@ import java.util.List;
 import com.example.gradetracker.Assignment;
 import com.example.gradetracker.DB.AppDatabase;
 import com.example.gradetracker.DB.AssignmentDao;
+import com.example.gradetracker.DB.GradeDao;
+import com.example.gradetracker.Grade;
 import com.example.gradetracker.R;
 
 /**
@@ -35,13 +37,14 @@ public class AddAssignmentActivity extends AppCompatActivity {
     Button mSubmitButton;
     Button mReturnButton;
 
-    List<com.example.gradetracker.Assignment>Assignment;
     AssignmentDao dao;
 
     public int courseID;
     public int categoryID;
+    public int userID;
+    GradeDao gradeDao;
+    Grade grade;
 
-    static  Assignment mAssignment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
         courseID = getIntent().getExtras().getInt("courseID");
         categoryID = getIntent().getExtras().getInt("categoryID");
+        userID = getIntent().getExtras().getInt("userID");
 
         mDetail = findViewById(R.id.mDetail);
         mDueDate = findViewById(R.id.due_date);
@@ -79,6 +83,10 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getAssignmentDao();
+        gradeDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeDao();
     }
 
     /**
@@ -91,14 +99,20 @@ public class AddAssignmentActivity extends AppCompatActivity {
         long earnedScore = Long.parseLong(mEarnedScore.getText().toString());
         long maxScore = Long.parseLong(mMaxScore.getText().toString());
 
-        //Assignment = dao.getAllAssignments();
         Assignment newAssignment = new Assignment(detail,maxScore,earnedScore,assignedDate,dueDate,categoryID,courseID);
         dao.insert(newAssignment);
+        Assignment tempAssignment = dao.getLastAssignment();
+        double a = earnedScore;
+        double b = maxScore;
+        double ab = a/b;
+        grade = new Grade(ab, tempAssignment.getAssignmentID(), userID, courseID, tempAssignment.getDueDate());
+        gradeDao.insert(grade);
 
         Toast.makeText(this, "Assignment was added.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AddAssignmentActivity.this, ShowAssignmentsActivity.class);
         intent.putExtra("courseID", courseID);
         intent.putExtra("categoryID", categoryID);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 

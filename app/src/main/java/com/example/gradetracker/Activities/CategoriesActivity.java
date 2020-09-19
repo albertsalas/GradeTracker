@@ -11,9 +11,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.example.gradetracker.Assignment;
 import com.example.gradetracker.CategoriesAdapter;
 import com.example.gradetracker.DB.AppDatabase;
+import com.example.gradetracker.DB.AssignmentDao;
 import com.example.gradetracker.DB.GradeCategoryDao;
+import com.example.gradetracker.DB.GradeDao;
+import com.example.gradetracker.Grade;
 import com.example.gradetracker.GradeCategory;
 import com.example.gradetracker.R;
 
@@ -37,6 +42,11 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     public int courseID;
     GradeCategoryDao gradeCategoryDao;
     List<GradeCategory> tempCategories = new ArrayList<>();
+    AssignmentDao assignmentDao;
+    List<Assignment> assignments;
+    GradeDao gradeDao;
+    List<Grade> grades;
+
 
     /**
      * onCreate is for displaying the information shown when the activity is made
@@ -47,17 +57,32 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+        grades = new ArrayList<>();
+        assignments = new ArrayList<>();
 
         gradeCategoryDao = Room.databaseBuilder(this, AppDatabase.class, AppDatabase.GRADE_CATEGORY_TABLE)
                 .allowMainThreadQueries()
                 .build()
                 .getGradeCategoryDao();
+        gradeDao = Room.databaseBuilder(this,AppDatabase.class, AppDatabase.GRADE_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getGradeDao();
+        assignmentDao = Room.databaseBuilder(this,AppDatabase.class, AppDatabase.ASSIGNMENT_TABLE)
+                .allowMainThreadQueries()
+                .build()
+                .getAssignmentDao();
         //get extra from previous activity
         if(getIntent().hasExtra("userID")){
             userID = getIntent().getExtras().getInt("userID");
             courseID = getIntent().getExtras().getInt("courseID");
         }
         setTitle("Course Grades");
+
+        grades = gradeDao.getAllGradesbyCourseID(courseID);
+        for(Grade g :grades){
+            System.out.println(g.getScore());
+        }
 
         tempCategories = gradeCategoryDao.getAllCategories();
 
@@ -95,7 +120,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
                 startActivity(intent);
                 break;
             case R.id.logoutIcon:
-                Intent logoutIntent = new Intent(this, LoginActivity.class);
+                Intent logoutIntent = new Intent(this, MainActivity.class);
                 startActivity(logoutIntent);
                 break;
         }

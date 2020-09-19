@@ -14,6 +14,12 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/logoutIcon"
         android:icon="@drawable/ic_logout"
         android:title="Logout"

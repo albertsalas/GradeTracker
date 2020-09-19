@@ -128,6 +128,11 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
                 Intent logoutIntent = new Intent(this, MainActivity.class);
                 startActivity(logoutIntent);
                 break;
+            case  R.id.home:
+                Intent home = new Intent(this, ClassScheduleActivity.class);
+                home.putExtra("userID", userID);
+                startActivity(home);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

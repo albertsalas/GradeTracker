@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
     List<Course> courses = new ArrayList<>();
     private OnCourseListener mOnCourseListener;
-
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
     public ClassAdapter(List<Course> courses, OnCourseListener onCourseListener){
         this.courses = courses;
         this.mOnCourseListener = onCourseListener;
@@ -40,7 +41,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         Course currentCourse = courses.get(position);
         holder.textViewTitle.setText(currentCourse.getTitle());
         holder.textViewDescription.setText(currentCourse.getDescription());
-        holder.textViewPriority.setText(String.valueOf(currentCourse.getCourseGrade()));
+        holder.textViewPriority.setText(String.valueOf(df2.format(currentCourse.getCourseGrade())));
     }
 
     @Override
